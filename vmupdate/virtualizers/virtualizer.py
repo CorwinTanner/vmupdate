@@ -1,5 +1,11 @@
 from abc import ABCMeta, abstractmethod
 
+VM_UNKNOWN = -1
+VM_STOPPED = 0
+VM_RUNNING = 1
+VM_SUSPENDED = 2
+VM_PAUSED = 3
+
 
 class Virtualizer:
     __metaclass__ = ABCMeta
@@ -9,9 +15,13 @@ class Virtualizer:
         pass
 
     @abstractmethod
-    def start_vm(self, id):
+    def start_vm(self, uuid):
         pass
 
     @abstractmethod
-    def run(self, id, path, executable, username, password, args):
+    def set_vm_status(self, uuid, status):
+        pass
+
+    @abstractmethod
+    def run(self, uuid, path, executable, username, password, args):
         pass
