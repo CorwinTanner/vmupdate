@@ -1,5 +1,6 @@
 import os
 import re
+import shlex
 import subprocess
 
 from .virtualizer import Virtualizer, VM_UNKNOWN, VM_STOPPED, VM_RUNNING, VM_SUSPENDED, VM_PAUSED
@@ -60,6 +61,19 @@ class VirtualBox(Virtualizer):
 
         return VM_UNKNOWN
 
-    def run(self, uuid, path, executable, username, password, args):
-        # guestcontrol {UUID} run --username {username} --password {password} --exe {path} -- {executable} {args}
-        raise NotImplementedError()
+    def run(self, uuid, executable, username, password, args=None):
+        pargs = [self.manager_path, 'guestcontrol', uuid, 'run', '--exe', executable, '--username', username]
+
+        if password:
+            pargs.extend(['--password', password])
+
+        if args:
+            if isinstance(args, basestring):
+                args = shlex.split(args)
+
+            pargs.extend(['--', executable])
+            pargs.extend(args)
+
+        cmd = subprocess.Popen(pargs)
+
+        return cmd.wait()

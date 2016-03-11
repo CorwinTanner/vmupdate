@@ -23,5 +23,5 @@ class Virtualizer:
         pass
 
     @abstractmethod
-    def run(self, uuid, path, executable, username, password, args):
+    def run(self, uuid, executable, username, password, args=None):
         pass
