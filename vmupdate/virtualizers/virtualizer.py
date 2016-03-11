@@ -19,7 +19,7 @@ class Virtualizer:
         pass
 
     @abstractmethod
-    def set_vm_status(self, uuid, status):
+    def stop_vm(self, uuid):
         pass
 
     @abstractmethod

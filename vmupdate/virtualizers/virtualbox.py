@@ -33,6 +33,11 @@ class VirtualBox(Virtualizer):
 
         return cmd.wait()
 
+    def stop_vm(self, uuid):
+        cmd = subprocess.Popen([self.manager_path, 'controlvm', uuid, 'poweroff'])
+
+        return cmd.wait()
+
     def get_vm_status(self, uuid):
         cmd = subprocess.Popen([self.manager_path, 'showvminfo', uuid], stdout=subprocess.PIPE)
 
@@ -54,9 +59,6 @@ class VirtualBox(Virtualizer):
                     return VM_PAUSED
 
         return VM_UNKNOWN
-
-    def set_vm_status(self, uuid, status):
-        raise NotImplementedError()
 
     def run(self, uuid, path, executable, username, password, args):
         # guestcontrol {UUID} run --username {username} --password {password} --exe {path} -- {executable} {args}
