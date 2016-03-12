@@ -1,9 +1,9 @@
-import os
 import re
 import shlex
 import subprocess
 
-from .virtualizer import Virtualizer, VM_UNKNOWN, VM_STOPPED, VM_RUNNING, VM_SUSPENDED, VM_PAUSED
+from .constants import *
+from .virtualizer import Virtualizer
 
 
 class VirtualBox(Virtualizer):
@@ -48,7 +48,7 @@ class VirtualBox(Virtualizer):
             match = re.search(r"""^State:\s*(?P<state>[a-z\s]*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
 
             if match:
-                state = match.group('state').strip()
+                state = match.group('state').strip().lower()
 
                 if state == 'powered off':
                     return VM_STOPPED
@@ -70,7 +70,38 @@ class VirtualBox(Virtualizer):
             match = re.search(r"""^Guest OS:\s*(?P<os>[a-z\s]*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
 
             if match:
-                return match.group('os')
+                state = match.group('os').strip().lower()
+
+                if state == 'windows' or state == 'windows xp' or state == 'windows vista' or state == 'other windows':
+                    return OS_WINDOWS
+                elif state == 'mac os x':
+                    return OS_MAC_OS_X
+                elif state == 'linux':
+                    return OS_LINUX
+                elif state == 'arch linux':
+                    return OS_ARCH
+                elif state == 'ubuntu':
+                    return OS_UBUNTU
+                elif state == 'red hat':
+                    return OS_REDHAT
+                elif state == 'debian':
+                    return OS_DEBIAN
+                elif state == 'fedora':
+                    return OS_FEDORA
+                elif state == 'gentoo':
+                    return OS_GENTOO
+                elif state == 'opensuse':
+                    return OS_OPENSUSE
+                elif state == 'mandriva':
+                    return OS_MANDRIVA
+                elif state == 'turbolinux':
+                    return OS_TURBOLINUX
+                elif state == 'xandros':
+                    return OS_XANDROS
+                elif state == 'oracle':
+                    return OS_ORACLE
+
+        return OS_UNKNOWN
 
     def run(self, uuid, executable, username, password, args=None):
         pargs = [self.manager_path, 'guestcontrol', uuid, 'run', '--exe', executable, '--username', username]

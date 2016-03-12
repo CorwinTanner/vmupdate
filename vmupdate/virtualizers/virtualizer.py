@@ -1,11 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-VM_UNKNOWN = -1
-VM_STOPPED = 0
-VM_RUNNING = 1
-VM_SUSPENDED = 2
-VM_PAUSED = 3
-
 
 class Virtualizer:
     __metaclass__ = ABCMeta
