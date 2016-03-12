@@ -61,6 +61,17 @@ class VirtualBox(Virtualizer):
 
         return VM_UNKNOWN
 
+    def get_vm_os(self, uuid):
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uuid], stdout=subprocess.PIPE)
+
+        stdoutdata, stderrdata = cmd.communicate()
+
+        if stdoutdata:
+            match = re.search(r"""^Guest OS:\s*(?P<os>[a-z\s]*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
+
+            if match:
+                return match.group('os')
+
     def run(self, uuid, executable, username, password, args=None):
         pargs = [self.manager_path, 'guestcontrol', uuid, 'run', '--exe', executable, '--username', username]
 
