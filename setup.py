@@ -1,6 +1,6 @@
 from io import open
 from os.path import abspath, dirname, join
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from vmupdate import __version__
 
@@ -15,9 +15,11 @@ setup(
     description="A tool to keep VM's up to date.",
     long_description=long_description,
     author='Corwin Tanner',
-    author_email='CorwinTanner@gmail.com',
+    author_email='corwintanner@gmail.com',
     url='https://github.com/corwintanner/vmupdate',
-    packages=['vmupdate'],
+    packages=find_packages(),
+    data_files=[('config', ['vmupdate/config/vmupdate.yaml'])],
+    install_requires = ['PyYAML'],
     entry_points={
         'console_scripts': [
             'vmupdate=vmupdate.cli:main',
