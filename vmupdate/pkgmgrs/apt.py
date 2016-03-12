@@ -2,9 +2,13 @@ from .pkgmgr import PkgMgr
 
 
 class Apt(PkgMgr):
+    def __init__(self, path):
+        self.path = path
 
-    def __init__(self, virt):
-        self.virt = virt
+    def update(self, virtualizer, uuid, username, password):
+        exitcode = virtualizer.run(uuid, self.path, username, password, ['update', '-y', '-u', '-q'])
 
-    def update(self):
-        raise NotImplementedError()
+        if exitcode != 0:
+            return exitcode
+
+        return virtualizer.run(uuid, self.path, username, password, ['upgrade', '-y', '-u', '-q'])

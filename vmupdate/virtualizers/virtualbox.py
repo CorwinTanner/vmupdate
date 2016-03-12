@@ -7,8 +7,7 @@ from .virtualizer import Virtualizer
 
 
 class VirtualBox(Virtualizer):
-
-    def __init__(self, manager_path=None):
+    def __init__(self, manager_path):
         self.manager_path = manager_path
 
     def list_vms(self):
