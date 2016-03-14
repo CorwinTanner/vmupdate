@@ -1,3 +1,12 @@
-windows:
-  virtualizers:
-    - virtualbox: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe
+General:
+  WaitAfterStart: 15
+  Username: root
+  UseKeyring: true
+
+Virtualizers:
+  Windows:
+    VirtualBox:
+      - $PROGRAMW6432\Oracle\VirtualBox\VBoxManage.exe
+      - $PROGRAMFILES\Oracle\VirtualBox\VBoxManage.exe
+
+Machines:
