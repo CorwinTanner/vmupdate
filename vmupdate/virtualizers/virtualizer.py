@@ -9,21 +9,21 @@ class Virtualizer:
         pass
 
     @abstractmethod
-    def start_vm(self, uuid):
+    def start_vm(self, uid):
         pass
 
     @abstractmethod
-    def stop_vm(self, uuid):
+    def stop_vm(self, uid):
         pass
 
     @abstractmethod
-    def get_vm_status(self, uuid):
+    def get_vm_status(self, uid):
         pass
 
     @abstractmethod
-    def get_vm_os(self, uuid):
+    def get_vm_os(self, uid):
         pass
 
     @abstractmethod
-    def run(self, uuid, executable, username, password, args=None):
+    def run(self, uid, executable, username, password, args=None):
         pass

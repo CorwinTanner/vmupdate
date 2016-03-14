@@ -5,5 +5,5 @@ class PkgMgr:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def update(self, virtualizer, uuid, username, password):
+    def update(self, virtualizer, uid, username, password):
         pass

@@ -24,22 +24,22 @@ class VirtualBox(Virtualizer):
 
             if matches:
                 for match in matches:
-                    vms.append((match.group('uuid'), match.group('name')))
+                    vms.append((match.group('name'), match.group('uuid')))
 
         return vms
 
-    def start_vm(self, uuid):
-        cmd = subprocess.Popen([self.manager_path, 'startvm', uuid, '--type', 'headless'])
+    def start_vm(self, uid):
+        cmd = subprocess.Popen([self.manager_path, 'startvm', uid, '--type', 'headless'])
 
         return cmd.wait()
 
-    def stop_vm(self, uuid):
-        cmd = subprocess.Popen([self.manager_path, 'controlvm', uuid, 'poweroff'])
+    def stop_vm(self, uid):
+        cmd = subprocess.Popen([self.manager_path, 'controlvm', uid, 'poweroff'])
 
         return cmd.wait()
 
-    def get_vm_status(self, uuid):
-        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uuid], stdout=subprocess.PIPE)
+    def get_vm_status(self, uid):
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -60,8 +60,8 @@ class VirtualBox(Virtualizer):
 
         return VM_UNKNOWN
 
-    def get_vm_os(self, uuid):
-        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uuid], stdout=subprocess.PIPE)
+    def get_vm_os(self, uid):
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -102,8 +102,8 @@ class VirtualBox(Virtualizer):
 
         return OS_UNKNOWN
 
-    def run(self, uuid, executable, username, password, args=None):
-        pargs = [self.manager_path, 'guestcontrol', uuid, 'run', '--exe', executable, '--username', username]
+    def run(self, uid, executable, username, password, args=None):
+        pargs = [self.manager_path, 'guestcontrol', uid, 'run', '--exe', executable, '--username', username]
 
         if password:
             pargs.extend(['--password', password])

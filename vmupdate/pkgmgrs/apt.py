@@ -7,10 +7,10 @@ class Apt(PkgMgr):
     def __init__(self, path):
         self.path = path
 
-    def update(self, virtualizer, uuid, username, password):
-        exitcode = virtualizer.run(uuid, self.path, username, password, ['update', '-y', '-u', '-q'])
+    def update(self, virtualizer, uid, username, password):
+        exitcode = virtualizer.run(uid, self.path, username, password, ['update', '-y', '-u', '-q'])
 
         if exitcode != 0:
             return exitcode
 
-        return virtualizer.run(uuid, self.path, username, password, ['upgrade', '-y', '-u', '-q'])
+        return virtualizer.run(uid, self.path, username, password, ['upgrade', '-y', '-u', '-q'])
