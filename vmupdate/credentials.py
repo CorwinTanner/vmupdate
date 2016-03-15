@@ -14,7 +14,7 @@ def get_username(uid):
     if uid in config.machines and 'Username' in config.machines[uid]:
         return config.machines[uid]['Username']
 
-    return config.general.get('Username')
+    return config.credentials.get('Username')
 
 
 def get_password(username, uid):
@@ -24,7 +24,7 @@ def get_password(username, uid):
         elif config.machines[uid].get('UseKeyring', False):
             return keyring.get_password(uid, username)
 
-    if 'UseKeyring' in config.general:
+    if 'UseKeyring' in config.credentials:
         return keyring.get_password('vmupdate', username)
 
-    return config.general.get('Password')
+    return config.credentials.get('Password')

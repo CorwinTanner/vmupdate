@@ -1,12 +1,26 @@
 General:
   WaitAfterStart: 15
+
+Credentials:
   Username: root
   UseKeyring: true
+
+Network:
+  SSH:
+    Guest:
+      Port: 22
+    Host:
+      Port: 22
+      Subnet: 10.0.0.0/8
 
 Virtualizers:
   Windows:
     VirtualBox:
       - $PROGRAMW6432\Oracle\VirtualBox\VBoxManage.exe
       - $PROGRAMFILES\Oracle\VirtualBox\VBoxManage.exe
+
+PackageManagers:
+  Ubuntu:
+    Apt: apt-get
 
 Machines:
