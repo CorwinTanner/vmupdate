@@ -49,7 +49,7 @@ class VirtualBox(Virtualizer):
             if match:
                 state = match.group('state').strip().lower()
 
-                if state == 'powered off':
+                if state == 'powered off' or state == 'aborted':
                     return VM_STOPPED
                 elif state == 'running':
                     return VM_RUNNING
@@ -113,9 +113,9 @@ class VirtualBox(Virtualizer):
             if matches:
                 for match in matches:
                     if match.group('protocol').lower() == 'tcp' and int(match.group('guestport')) == ssh_port:
-                        return match.group('hostip'), int(match.group('hostport'))
+                        return match.group('hostip') or '127.0.0.1', int(match.group('hostport'))
 
-    def enable_ssh(self, uid, host_ip, host_port, guest_port):
-        cmd = subprocess.Popen([self.manager_path, 'modifyvm', uid, '--natpf1', 'ssh,tcp,{0},{1},,{2}'.format(host_ip, host_port, guest_port)])
+    def enable_ssh(self, uid, host_port, guest_port):
+        cmd = subprocess.Popen([self.manager_path, 'modifyvm', uid, '--natpf1', 'ssh,tcp,,{0},,{1}'.format(host_port, guest_port)])
 
         return cmd.wait()
