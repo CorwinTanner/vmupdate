@@ -2,8 +2,6 @@ from .pkgmgr import PkgMgr
 
 
 class Apt(PkgMgr):
-    NAME = 'apt-get'
-
     def __init__(self, path):
         self.path = path
 
