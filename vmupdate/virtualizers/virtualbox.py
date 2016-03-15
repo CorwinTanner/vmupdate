@@ -102,19 +102,20 @@ class VirtualBox(Virtualizer):
 
         return OS_UNKNOWN
 
-    def run(self, uid, executable, username, password, args=None):
-        pargs = [self.manager_path, 'guestcontrol', uid, 'run', '--exe', executable, '--username', username]
+    def get_ssh_info(self, uid, ssh_port):
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE)
 
-        if password:
-            pargs.extend(['--password', password])
+        stdoutdata, stderrdata = cmd.communicate()
 
-        if args:
-            if isinstance(args, basestring):
-                args = shlex.split(args)
+        if stdoutdata:
+            matches = re.finditer(r"""^NIC \d+ Rule\(\d+\):\s*name = (?P<name>[^,]*), protocol = (?P<protocol>(tcp|udp)), host ip = (?P<hostip>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), host port = (?P<hostport>\d*), guest ip = (?P<guestip>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), guest port = (?P<guestport>\d*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
 
-            pargs.extend(['--', executable])
-            pargs.extend(args)
+            if matches:
+                for match in matches:
+                    if match.group('protocol').lower() == 'tcp' and int(match.group('guestport')) == ssh_port:
+                        return match.group('hostip'), int(match.group('hostport'))
 
-        cmd = subprocess.Popen(pargs)
+    def enable_ssh(self, uid, host_ip, host_port, guest_port):
+        cmd = subprocess.Popen([self.manager_path, 'modifyvm', uid, '--natpf1', 'ssh,tcp,{0},{1},,{2}'.format(host_ip, host_port, guest_port)])
 
         return cmd.wait()

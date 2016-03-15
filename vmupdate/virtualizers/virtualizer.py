@@ -25,5 +25,9 @@ class Virtualizer:
         pass
 
     @abstractmethod
-    def run(self, uid, executable, username, password, args=None):
+    def get_ssh_info(self, uid, ssh_port):
+        pass
+
+    @abstractmethod
+    def enable_ssh(self, uid, host_ip, host_port, guest_port):
         pass

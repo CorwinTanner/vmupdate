@@ -1,19 +1,23 @@
 class VM:
-    def __init__(self, virtualizer, pkgmgr, uuid, username, password):
+    def __init__(self, virtualizer, uid):
         self.virtualizer = virtualizer
-        self.pkgmgr = pkgmgr
-        self.uuid = uuid
-        self.username = username
-        self.password = password
+        self.uid = uid
 
     def start(self):
-        self.virtualizer.start_vm(self.uuid)
+        self.virtualizer.start_vm(self.uid)
 
     def stop(self):
-        self.virtualizer.stop_vm(self.uuid)
+        self.virtualizer.stop_vm(self.uid)
 
     def get_status(self):
-        return self.virtualizer.get_vm_status(self.uuid)
+        return self.virtualizer.get_vm_status(self.uid)
 
-    def update(self):
-        return self.pkgmgr.update(self.virtualizer, self.uuid, self.username, self.password)
+    def get_ssh_info(self, ssh_port):
+        return self.virtualizer.get_ssh_info(self.uid, ssh_port)
+
+    def enable_ssh(self, host_ip, host_port, guest_port):
+        return self.virtualizer.enable_ssh(self.uid, host_ip, host_port, guest_port)
+
+    def update(self, username, password):
+        # return self.pkgmgr.update(self.virtualizer, self.uid, username, password)
+        raise NotImplementedError()
