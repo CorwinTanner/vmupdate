@@ -15,8 +15,8 @@ class VM:
     def get_ssh_info(self, ssh_port):
         return self.virtualizer.get_ssh_info(self.uid, ssh_port)
 
-    def enable_ssh(self, host_ip, host_port, guest_port):
-        return self.virtualizer.enable_ssh(self.uid, host_ip, host_port, guest_port)
+    def enable_ssh(self, host_port, guest_port):
+        return self.virtualizer.enable_ssh(self.uid, host_port, guest_port)
 
     def update(self, username, password):
         # return self.pkgmgr.update(self.virtualizer, self.uid, username, password)
