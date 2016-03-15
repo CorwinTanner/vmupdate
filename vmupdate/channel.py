@@ -1,3 +1,5 @@
+from subprocess import list2cmdline
+
 from paramiko import SSHClient, AutoAddPolicy
 
 
@@ -18,5 +20,8 @@ class Channel:
         self.ssh.set_missing_host_key_policy(AutoAddPolicy())
         self.ssh.connect(self.ip, port=self.port, username=username, password=password)
 
-    def run(self, command):
-        return self.ssh.exec_command(command)
+    def run(self, args):
+        if isinstance(args, list):
+            args = list2cmdline(args)
+
+        return self.ssh.exec_command(args)
