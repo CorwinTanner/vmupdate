@@ -21,10 +21,10 @@ def get_password(username, uid):
     if uid in config.machines:
         if 'Password' in config.machines[uid]:
             return config.machines[uid]['Password']
-        elif config.machines[uid].get('UseKeyring', False):
+        elif config.machines[uid].get('Use Keyring', False):
             return keyring.get_password(uid, username)
 
-    if 'UseKeyring' in config.credentials:
+    if 'Use Keyring' in config.credentials:
         return keyring.get_password('vmupdate', username)
 
     return config.credentials.get('Password')

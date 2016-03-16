@@ -32,7 +32,11 @@ class Config:
 
     @property
     def pkgmgrs(self):
-        return self._config['PackageManagers'] or {}
+        return self._config['Package Managers'] or {}
+
+    @property
+    def shells(self):
+        return self._config['Shells'] or {}
 
     def load(self):
         self._config = yaml.load(pkgutil.get_data('vmupdate', 'config/vmupdate.yaml'))

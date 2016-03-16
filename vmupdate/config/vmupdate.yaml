@@ -1,17 +1,16 @@
 General:
-  WaitAfterStart: 15
+  Wait After Start: 15
 
 Credentials:
-  Username: root
-  UseKeyring: true
+  Username: corwin # TODO: change to root
+  Use Keyring: true
 
 Network:
   SSH:
     Guest:
       Port: 22
     Host:
-      Port: 22
-      Subnet: 10.0.0.0/8
+      Initial Port: 49152
 
 Virtualizers:
   Windows:
@@ -19,8 +18,22 @@ Virtualizers:
       - $PROGRAMW6432\Oracle\VirtualBox\VBoxManage.exe
       - $PROGRAMFILES\Oracle\VirtualBox\VBoxManage.exe
 
-PackageManagers:
+Package Managers:
   Ubuntu:
     Apt: apt-get
+
+Shells:
+  Linux: Posix
+  Arch: Posix
+  Ubuntu: Posix
+  Red Hat: Posix
+  Debian: Posix
+  Fedora: Posix
+  Gentoo: Posix
+  openSUSE: Posix
+  Mandriva: Posix
+  Turbolinux: Posix
+  Xandros: Posix
+  Oracle: Posix
 
 Machines:
