@@ -2,7 +2,7 @@ General:
   Wait After Start: 15
 
 Credentials:
-  Username: corwin # TODO: change to root
+  Username: root
   Use Keyring: true
 
 Network:
