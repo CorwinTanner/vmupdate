@@ -14,7 +14,7 @@ class Channel:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.ssh.close()
+        self.close()
 
     def connect(self, username, password):
         self.ssh.set_missing_host_key_policy(AutoAddPolicy())
@@ -25,3 +25,7 @@ class Channel:
             args = list2cmdline(args)
 
         return self.ssh.exec_command(args)
+
+    def close(self):
+        if self.ssh:
+            self.ssh.close()
