@@ -4,6 +4,7 @@ General:
 Credentials:
   Username: root
   Use Keyring: true
+  Use Sudo: false
 
 Network:
   SSH:
@@ -20,7 +21,9 @@ Virtualizers:
 
 Package Managers:
   Ubuntu:
-    Apt: apt-get
+    apt-get:
+      - update -y -u -q
+      - upgrade -y -u -q
 
 Shells:
   Linux: Posix
