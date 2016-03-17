@@ -1,10 +1,10 @@
 General:
-  Wait After Start: 15
+  Wait After Start: 30
 
 Credentials:
   Username: root
   Use Keyring: true
-  Use Sudo: false
+  Run As Elevated: true
 
 Network:
   SSH:
