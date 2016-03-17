@@ -28,3 +28,9 @@ def get_password(username, uid):
         return keyring.get_password('vmupdate', username)
 
     return config.credentials.get('Password')
+
+def get_run_as_elevated(uid):
+    if uid in config.machines and 'Run As Elevated' in config.machines[uid]:
+        return config.machines[uid]['Run As Elevated']
+
+    return config.credentials.get('Run As Elevated')
