@@ -20,6 +20,9 @@ Virtualizers:
       - $PROGRAMFILES\Oracle\VirtualBox\VBoxManage.exe
 
 Package Managers:
+  Arch:
+    pacman:
+      - -Syu --noconfirm
   Ubuntu:
     apt-get:
       - update -y -u -q
