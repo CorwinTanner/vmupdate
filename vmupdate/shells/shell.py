@@ -20,3 +20,7 @@ class Shell:
     @abstractmethod
     def command_exists(self, command):
         pass
+
+    @abstractmethod
+    def run_as_elevated(self, args, password):
+        pass
