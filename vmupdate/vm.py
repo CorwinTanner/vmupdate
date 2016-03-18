@@ -34,7 +34,7 @@ class VM:
         return self.virtualizer.enable_ssh(self.uid, host_port, self.ssh_port)
 
     def connect(self):
-        ip, port = self.get_ssh_info(self.ssh_port)
+        ip, port = self.get_ssh_info()
 
         channel = Channel(ip, port)
 
