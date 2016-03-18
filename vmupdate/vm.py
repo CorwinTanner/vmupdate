@@ -11,6 +11,10 @@ class VM:
         self.virtualizer = virtualizer
         self.uid = uid
 
+    @property
+    def ssh_port(self):
+        return config.network['SSH']['Guest']['Port']
+
     def start(self):
         self.virtualizer.start_vm(self.uid)
 
@@ -23,14 +27,14 @@ class VM:
     def get_os(self):
         return self.virtualizer.get_vm_os(self.uid)
 
-    def get_ssh_info(self, ssh_port):
-        return self.virtualizer.get_ssh_info(self.uid, ssh_port)
+    def get_ssh_info(self):
+        return self.virtualizer.get_ssh_info(self.uid, self.ssh_port)
 
-    def enable_ssh(self, host_port, guest_port):
-        return self.virtualizer.enable_ssh(self.uid, host_port, guest_port)
+    def enable_ssh(self, host_port):
+        return self.virtualizer.enable_ssh(self.uid, host_port, self.ssh_port)
 
-    def connect(self, ssh_port):
-        ip, port = self.get_ssh_info(ssh_port)
+    def connect(self):
+        ip, port = self.get_ssh_info(self.ssh_port)
 
         channel = Channel(ip, port)
 

@@ -9,8 +9,6 @@ from vm import VM
 def get_all_vms():
     vms = []
 
-    guest_ssh_port = config.network['SSH']['Guest']['Port']
-
     virtualizers = find_virtualizers()
 
     available_ports = iter(get_available_ports(vms))
@@ -21,10 +19,10 @@ def get_all_vms():
         for vm_name, vm_uuid in virtualizer.list_vms():
             vm = VM(virtualizer, vm_name)
 
-            ssh_info = vm.get_ssh_info(guest_ssh_port)
+            ssh_info = vm.get_ssh_info()
 
             if not ssh_info and vm.get_status() == VM_STOPPED:
-                vm.enable_ssh(next(available_ports), guest_ssh_port)
+                vm.enable_ssh(next(available_ports))
 
             vms.append(vm)
 
@@ -55,10 +53,8 @@ def get_available_ports(vms):
 def get_used_ports(vms):
     used_ports = set()
 
-    guest_ssh_port = config.network['SSH']['Guest']['Port']
-
     for vm in vms:
-        ssh_info = vm.get_ssh_info(guest_ssh_port)
+        ssh_info = vm.get_ssh_info()
 
         if ssh_info:
             used_ports.add(ssh_info[1])
