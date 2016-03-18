@@ -11,7 +11,9 @@ Network:
     Guest:
       Port: 22
     Host:
-      Initial Port: 49152
+      Ports:
+        Min: 49152
+        Max: 65535
 
 Virtualizers:
   Windows:
