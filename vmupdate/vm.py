@@ -11,7 +11,7 @@ class VM:
 
     @property
     def ssh_port(self):
-        return config.network['SSH']['Guest']['Port']
+        return config.network.ssh.guest_port
 
     def start(self):
         self.virtualizer.start_vm(self.uid)
@@ -43,7 +43,7 @@ class VM:
         return get_shell(self.get_shell_name(), channel)
 
     def get_shell_name(self):
-        if self.uid in config.machines and 'Shell' in config.machines[self.uid]:
-            return config.machines[self.uid]['Shell']
+        if self.uid in config.machines and config.machines[self.uid].shell:
+            return config.machines[self.uid].shell
 
         return config.shells.get(self.virtualizer.get_vm_os(self.uid))

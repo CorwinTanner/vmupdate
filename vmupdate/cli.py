@@ -15,7 +15,7 @@ def main():
 
         if vm_orig_status == VM_STOPPED:
             vm.start()
-            time.sleep(config.general['Wait After Start'])
+            time.sleep(config.general.wait_after_start)
 
         for pkgmgr, cmds in get_pkgmgrs(vm):
             run_pkgmgr(vm, pkgmgr, cmds)

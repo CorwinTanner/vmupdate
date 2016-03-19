@@ -45,7 +45,8 @@ def find_virtualizers():
 def get_available_ports(vms):
     used_ports = get_used_ports(vms)
 
-    min_port, max_port = get_port_range()
+    min_port = config.network.ssh.host_min_port
+    max_port = config.network.ssh.host_max_port
 
     return [p for p in xrange(min_port, max_port) if p not in used_ports]
 
@@ -60,9 +61,3 @@ def get_used_ports(vms):
             used_ports.add(ssh_info[1])
 
     return used_ports
-
-def get_port_range():
-    min_port = config.network['SSH']['Host']['Ports']['Min']
-    max_port = config.network['SSH']['Host']['Ports'].get('Max', 65535)
-
-    return min_port, max_port

@@ -11,26 +11,28 @@ def get_credentials(uid):
 
 
 def get_username(uid):
-    if uid in config.machines and 'Username' in config.machines[uid]:
-        return config.machines[uid]['Username']
+    if uid in config.machines and config.machines[uid].username:
+        return config.machines[uid].username
 
-    return config.credentials.get('Username')
+    return config.credentials.username
 
 
 def get_password(username, uid):
     if uid in config.machines:
-        if 'Password' in config.machines[uid]:
-            return config.machines[uid]['Password']
-        elif config.machines[uid].get('Use Keyring', False):
+        if config.machines[uid].password:
+            return config.machines[uid].password
+        elif config.machines[uid].use_keyring == True:
             return keyring.get_password(uid, username)
+        elif config.machines[uid].use_keyring == False:
+            return config.credentials.password
 
-    if 'Use Keyring' in config.credentials:
+    if config.credentials.use_keyring:
         return keyring.get_password('vmupdate', username)
 
-    return config.credentials.get('Password')
+    return config.credentials.password
 
 def get_run_as_elevated(uid):
-    if uid in config.machines and 'Run As Elevated' in config.machines[uid]:
-        return config.machines[uid]['Run As Elevated']
+    if uid in config.machines and config.machines[uid].run_as_elevated is not None:
+        return config.machines[uid].run_as_elevated
 
-    return config.credentials.get('Run As Elevated')
+    return config.credentials.run_as_elevated
