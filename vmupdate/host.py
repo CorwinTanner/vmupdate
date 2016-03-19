@@ -1,9 +1,28 @@
 import os
 import platform
+import time
 
 from config import config
 from virtualizers import get_virtualizer, VM_STOPPED
+from pkgmgr import get_pkgmgrs, run_pkgmgr
 from vm import VM
+
+
+def upate_all_vms():
+    for vm in get_all_vms():
+        vm_orig_status = vm.get_status()
+
+        if vm_orig_status == VM_STOPPED:
+            vm.start()
+            time.sleep(config.general.wait_after_start)
+
+        for pkgmgr, cmds in get_pkgmgrs(vm):
+            run_pkgmgr(vm, pkgmgr, cmds)
+
+        if vm_orig_status == VM_STOPPED:
+            vm.stop()
+
+    return 0
 
 
 def get_all_vms():
