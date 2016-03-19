@@ -1,3 +1,4 @@
+import logging.config
 import pkgutil
 
 import yaml
@@ -40,6 +41,9 @@ class Config:
 
     def load(self):
         self._config = yaml.load(pkgutil.get_data('vmupdate', 'config/vmupdate.yaml'))
+        self._logging = yaml.load(pkgutil.get_data('vmupdate', 'config/logging.yaml'))
+
+        logging.config.dictConfig(self._logging)
 
 
 config = Config()
