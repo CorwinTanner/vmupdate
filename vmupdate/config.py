@@ -40,8 +40,8 @@ class Config:
         return self._config['Shells'] or {}
 
     def load(self):
-        self._config = yaml.load(pkgutil.get_data('vmupdate', 'config/vmupdate.yaml'))
-        self._logging = yaml.load(pkgutil.get_data('vmupdate', 'config/logging.yaml'))
+        self._config = yaml.load(pkgutil.get_data('vmupdate', 'data/vmupdate.yaml'))
+        self._logging = yaml.load(pkgutil.get_data('vmupdate', 'data/logging.yaml'))
 
         logging.config.dictConfig(self._logging)
 
