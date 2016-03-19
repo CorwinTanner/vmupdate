@@ -1,29 +1,20 @@
+import argparse
 import sys
-import time
 
 from config import config
-from host import get_all_vms
-from pkgmgr import get_pkgmgrs, run_pkgmgr
-from virtualizers import VM_STOPPED
+from host import upate_all_vms
 
 
 def main():
-    config.load()
+    parser = argparse.ArgumentParser()
 
-    for vm in get_all_vms():
-        vm_orig_status = vm.get_status()
+    parser.add_argument('-c', '--config', help='use specified config path')
 
-        if vm_orig_status == VM_STOPPED:
-            vm.start()
-            time.sleep(config.general.wait_after_start)
+    args = parser.parse_args()
 
-        for pkgmgr, cmds in get_pkgmgrs(vm):
-            run_pkgmgr(vm, pkgmgr, cmds)
+    config.load(args.config)
 
-        if vm_orig_status == VM_STOPPED:
-            vm.stop()
-
-    return 0
+    upate_all_vms()
 
 
 if __name__ == '__main__':
