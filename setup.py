@@ -19,7 +19,7 @@ setup(
     url='https://github.com/corwintanner/vmupdate',
     packages=find_packages(),
     data_files=[
-        ('config', ['vmupdate/config/vmupdate.yaml'])
+        ('config', ['vmupdate/config/vmupdate.yaml']),
         ('logging', ['vmupdate/config/logging.yaml'])],
     install_requires=['PyYAML>=3', 'keyring>=8', 'paramiko>=1'],
     entry_points={
