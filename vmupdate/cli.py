@@ -2,7 +2,7 @@ import argparse
 import sys
 
 from config import config
-from host import upate_all_vms
+from host import update_all_vms
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
 
     config.load(args.config)
 
-    upate_all_vms()
+    update_all_vms()
 
 
 if __name__ == '__main__':

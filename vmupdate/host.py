@@ -8,7 +8,7 @@ from pkgmgr import get_pkgmgrs, run_pkgmgr
 from vm import VM
 
 
-def upate_all_vms():
+def update_all_vms():
     for vm in get_all_vms():
         vm_orig_status = vm.get_status()
 
