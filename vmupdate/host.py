@@ -12,9 +12,15 @@ log = logging.getLogger(__name__)
 
 
 def update_all_vms():
-    log.info('Updating all VMs')
+    log.info('Starting update on all VMs')
 
-    for vm in get_all_vms():
+    vms = get_all_vms()
+
+    log.info('Found %i VM(s) to update', len(vms))
+
+    for vm in vms:
+        log.info('Starting update on %s', vm.uid)
+
         vm_orig_status = vm.get_status()
 
         if vm_orig_status == VM_STOPPED:
@@ -26,13 +32,15 @@ def update_all_vms():
             for pkgmgr, cmds in get_pkgmgrs(vm):
                 run_pkgmgr(vm, pkgmgr, cmds)
         except:
-            log.error('Failed to locate virtualizer', exc_info=True)
+            log.exception('Failed while updating %s', vm.uid)
 
         if vm_orig_status == VM_STOPPED:
             log.info('Stopping %s', vm.uid)
             vm.stop()
 
-    log.info('Finished updating')
+        log.info('Finished update on %s', vm.uid)
+
+    log.info('Finished update on all VMs')
 
     return 0
 
@@ -54,16 +62,15 @@ def get_all_vms():
 
             vm = VM(virtualizer, vm_name)
 
-            ssh_info = vm.get_ssh_info()
-
-            if not ssh_info:
+            if not vm.get_ssh_info():
                 if vm.get_status() == VM_STOPPED:
                     log.info('Enabling SSH for %s', vm_name)
                     vm.enable_ssh(next(available_ports))
                 else:
                     log.warn('SSH cannot be enabled for %s unless it is stopped', vm_name)
 
-            vms.append(vm)
+            if vm.get_ssh_info():
+                vms.append(vm)
 
     return vms
 
@@ -83,7 +90,7 @@ def find_virtualizers():
                 if os.path.isfile(path):
                     virtualizer[name] = path
         except:
-            log.error('Failed to locate virtualizer', exc_info=True)
+            log.exception('Failed while locating virtualizer %s', name)
 
     return virtualizer
 

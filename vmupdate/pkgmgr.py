@@ -10,12 +10,13 @@ def get_pkgmgrs(vm):
     pkgmgrs = []
     vm_os = vm.get_os()
 
-    log.info('Querying package managers for %s with OS %s', vm.uid, vm_os)
+    log.info('Querying package managers for %s on OS %s', vm.uid, vm_os)
 
     if vm_os in config.pkgmgrs:
         with vm.connect() as shell:
             for pkgmgr, cmds in config.pkgmgrs[vm_os].items():
                 log.debug('Checking if %s exists on %s', pkgmgr, vm.uid)
+
                 if shell.command_exists(pkgmgr):
                     pkgmgrs.append((pkgmgr, cmds))
 
