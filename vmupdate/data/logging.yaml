@@ -1,15 +1,15 @@
 version: 1
-disable_existing_loggers: true
+disable_existing_loggers: false
 formatters:
   console:
     format: '%(name)s - %(levelname)s - %(message)s'
   simple:
-    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format: '%(asctime)s - %(levelname)s - %(message)s'
     datefmt: '%Y/%m/%d/ %H:%M:%S'
 handlers:
   console:
     class: logging.StreamHandler
-    level: INFO
+    level: DEBUG
     formatter: console
     stream: ext://sys.stdout
   info_file:
@@ -29,10 +29,10 @@ handlers:
     backupCount: 5
     encoding: utf8
 loggers:
-  root:
-    level: INFO
-    handlers: [console, info_file, error_file]
   vmupdate:
     level: INFO
   paramiko:
     level: WARNING
+root:
+    level: INFO
+    handlers: [console, info_file, error_file]

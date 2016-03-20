@@ -1,3 +1,4 @@
+import logging
 import os
 import platform
 import time
@@ -7,20 +8,31 @@ from virtualizers import get_virtualizer, VM_STOPPED
 from pkgmgr import get_pkgmgrs, run_pkgmgr
 from vm import VM
 
+log = logging.getLogger(__name__)
+
 
 def update_all_vms():
+    log.info('Updating all VMs')
+
     for vm in get_all_vms():
         vm_orig_status = vm.get_status()
 
         if vm_orig_status == VM_STOPPED:
+            log.info('Starting %s', vm.uid)
             vm.start()
             time.sleep(config.general.wait_after_start)
 
-        for pkgmgr, cmds in get_pkgmgrs(vm):
-            run_pkgmgr(vm, pkgmgr, cmds)
+        try:
+            for pkgmgr, cmds in get_pkgmgrs(vm):
+                run_pkgmgr(vm, pkgmgr, cmds)
+        except:
+            log.error('Failed to locate virtualizer', exc_info=True)
 
         if vm_orig_status == VM_STOPPED:
+            log.info('Stopping %s', vm.uid)
             vm.stop()
+
+    log.info('Finished updating')
 
     return 0
 
@@ -33,15 +45,23 @@ def get_all_vms():
     available_ports = iter(get_available_ports(vms))
 
     for virt_name, virt_path in virtualizers.items():
+        log.info('Querying virtualizer %s', virt_name)
+
         virtualizer = get_virtualizer(virt_name, virt_path)
 
         for vm_name, vm_uuid in virtualizer.list_vms():
+            log.info('Found VM %s', vm_name)
+
             vm = VM(virtualizer, vm_name)
 
             ssh_info = vm.get_ssh_info()
 
-            if not ssh_info and vm.get_status() == VM_STOPPED:
-                vm.enable_ssh(next(available_ports))
+            if not ssh_info:
+                if vm.get_status() == VM_STOPPED:
+                    log.info('Enabling SSH for %s', vm_name)
+                    vm.enable_ssh(next(available_ports))
+                else:
+                    log.warn('SSH cannot be enabled for %s unless it is stopped', vm_name)
 
             vms.append(vm)
 
@@ -49,14 +69,21 @@ def get_all_vms():
 
 
 def find_virtualizers():
+    log.info('Finding virtualizers')
+
     virtualizer = {}
 
     for name, paths in config.virtualizers[platform.system()].items():
-        for path in paths:
-            path = os.path.expandvars(path)
+        try:
+            for path in paths:
+                log.debug('Checking virtualizer "%s"', path)
 
-            if os.path.isfile(path):
-                virtualizer[name] = path
+                path = os.path.expandvars(path)
+
+                if os.path.isfile(path):
+                    virtualizer[name] = path
+        except:
+            log.error('Failed to locate virtualizer', exc_info=True)
 
     return virtualizer
 
