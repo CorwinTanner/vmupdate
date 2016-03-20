@@ -16,6 +16,8 @@ def main():
 
     update_all_vms()
 
+    return 0
+
 
 if __name__ == '__main__':
     sys.exit(main())
