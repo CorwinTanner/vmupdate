@@ -108,9 +108,9 @@ def get_used_ports(vms):
     used_ports = set()
 
     for vm in vms:
-        ssh_info = vm.get_ssh_info()
+        ip, port = vm.get_ssh_info()
 
-        if ssh_info:
-            used_ports.add(ssh_info[1])
+        if port:
+            used_ports.add(port)
 
     return used_ports
