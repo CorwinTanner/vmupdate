@@ -25,7 +25,8 @@ setup(
     data_files=[
         ('data', ['vmupdate/data/vmupdate.yaml']),
         ('logging', ['vmupdate/data/logging.yaml'])],
-    zip_safe=True,
+    include_package_data=True,
+    zip_safe=False,
     install_requires=['PyYAML>=3', 'keyring>=8', 'paramiko>=1'],
     entry_points={
         'console_scripts': [
