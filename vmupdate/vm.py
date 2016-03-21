@@ -1,7 +1,7 @@
 from .channel import Channel
 from .config import config
 from .credentials import get_credentials
-from .exceptions import SshError
+from .errors import SshError
 from .shells import get_shell
 
 
@@ -34,6 +34,9 @@ class VM:
 
     def connect(self):
         ip, port = self.get_ssh_info()
+
+        if not ip and not port:
+            raise SshError('SSH is not enabled for %s' % self.uid)
 
         channel = Channel(ip, port)
 
