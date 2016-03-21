@@ -114,6 +114,8 @@ class VirtualBox(Virtualizer):
                     if match.group('protocol').lower() == 'tcp' and int(match.group('guestport')) == ssh_port:
                         return match.group('hostip') or '127.0.0.1', int(match.group('hostport'))
 
+        return None, None
+
     def enable_ssh(self, uid, host_port, guest_port):
         cmd = subprocess.Popen([self.manager_path, 'modifyvm', uid, '--natpf1', 'ssh,tcp,,{0},,{1}'.format(host_port, guest_port)])
 
