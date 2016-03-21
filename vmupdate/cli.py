@@ -1,8 +1,8 @@
 import argparse
 import sys
 
-from config import config
-from host import update_all_vms
+from vmupdate.config import config
+from vmupdate.host import update_all_vms
 
 
 def main():
