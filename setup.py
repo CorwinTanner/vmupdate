@@ -6,14 +6,18 @@ from vmupdate import __version__
 
 cur_dir = abspath(dirname(__file__))
 
-with open(join(cur_dir, 'README.rst'), encoding='utf-8') as file:
-    long_description = file.read()
+with open(join(cur_dir, 'README.rst'), encoding='utf-8') as readme_file:
+    long_description = readme_file.read()
+
+with open(join(cur_dir, 'LICENSE'), encoding='utf-8') as license_file:
+    license = license_file.read()
 
 setup(
     name='vmupdate',
     version=__version__,
-    description="A tool to keep VM's up to date.",
+    description='Command line utility used to keep your virtual machines up to date.',
     long_description=long_description,
+    license=license,
     author='Corwin Tanner',
     author_email='corwintanner@gmail.com',
     url='https://github.com/corwintanner/vmupdate',
@@ -27,4 +31,18 @@ setup(
             'vmupdate=vmupdate.cli:main',
         ],
     },
+    keywords=['vm', 'update', 'virtual', 'machine'],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: Console',
+        'Intended Audience :: End Users/Desktop',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 2 :: Only',
+        'Topic :: System :: Systems Administration',
+        'Topic :: Utilities',
+    ],
 )
