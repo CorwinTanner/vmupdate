@@ -3,14 +3,14 @@ import pkgutil
 
 import yaml
 
-from configsection import ConfigSection
-from credentials import Credentials
-from general import General
-from machines import Machines
-from network import Network
-from pkgmgrs import PackageManagers
-from shells import Shells
-from virtualizers import Virtualizers
+from .configsection import ConfigSection
+from .credentials import Credentials
+from .general import General
+from .machines import Machines
+from .network import Network
+from .pkgmgrs import PackageManagers
+from .shells import Shells
+from .virtualizers import Virtualizers
 
 
 class Config(ConfigSection):

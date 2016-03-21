@@ -1,4 +1,4 @@
-from configsection import ConfigSection
+from .configsection import ConfigSection
 
 
 class General(ConfigSection):

@@ -1,7 +1,7 @@
 import logging
 
-from config import config
-from credentials import get_credentials, get_run_as_elevated
+from .config import config
+from .credentials import get_credentials, get_run_as_elevated
 
 log = logging.getLogger(__name__)
 

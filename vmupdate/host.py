@@ -3,10 +3,10 @@ import os
 import platform
 import time
 
-from config import config
-from virtualizers import get_virtualizer, VM_STOPPED
-from pkgmgr import get_pkgmgrs, run_pkgmgr
-from vm import VM
+from .config import config
+from .virtualizers import get_virtualizer, VM_STOPPED
+from .pkgmgr import get_pkgmgrs, run_pkgmgr
+from .vm import VM
 
 log = logging.getLogger(__name__)
 

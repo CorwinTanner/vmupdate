@@ -1,7 +1,8 @@
-from channel import Channel
-from config import config
-from credentials import get_credentials
-from shells import get_shell
+from .channel import Channel
+from .config import config
+from .credentials import get_credentials
+from .exceptions import SshError
+from .shells import get_shell
 
 
 class VM:

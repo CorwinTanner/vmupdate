@@ -1,6 +1,6 @@
 import sys
 
-from virtualbox import VirtualBox
+from .virtualbox import VirtualBox
 
 
 def get_virtualizer(name, path):

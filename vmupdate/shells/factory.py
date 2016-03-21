@@ -1,6 +1,6 @@
 import sys
 
-from posix import Posix
+from .posix import Posix
 
 
 def get_shell(name, channel):
