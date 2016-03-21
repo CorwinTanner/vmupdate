@@ -62,14 +62,14 @@ def get_all_vms():
 
             vm = VM(virtualizer, vm_name)
 
-            if not vm.get_ssh_info():
+            if not any(vm.get_ssh_info()):
                 if vm.get_status() == VM_STOPPED:
                     log.info('Enabling SSH for %s', vm_name)
                     vm.enable_ssh(next(available_ports))
                 else:
                     log.warn('SSH cannot be enabled for %s unless it is stopped', vm_name)
 
-            if vm.get_ssh_info():
+            if any(vm.get_ssh_info()):
                 vms.append(vm)
 
     return vms
