@@ -33,6 +33,8 @@ setup(
             'vmupdate=vmupdate.cli:main',
         ],
     },
+    test_suite='tests',
+    tests_require=['mock>1'],
     keywords=['vm', 'update', 'virtual', 'machine'],
     classifiers=[
         'Development Status :: 3 - Alpha',
