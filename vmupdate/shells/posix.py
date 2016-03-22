@@ -8,9 +8,9 @@ class Posix(Shell):
         self.channel = channel
 
     def command_exists(self, command):
-        stdin, stdout, stderr = self.run(['command', '-v', command])
+        cmd = self.run(['command', '-v', command])
 
-        return stdout.channel.recv_exit_status() == 0
+        return cmd.wait() == 0
 
     def run_as_elevated(self, args, password):
         if isinstance(args, basestring):
@@ -19,10 +19,10 @@ class Posix(Shell):
         elevated_args = ['sudo', '-S']
         elevated_args.extend(args)
 
-        stdin, stdout, stderr = self.run(elevated_args)
+        cmd = self.run(elevated_args)
 
-        stdin.write(password)
-        stdin.write('\n')
-        stdin.flush()
+        cmd.stdin.write(password)
+        cmd.stdin.write('\n')
+        cmd.stdin.flush()
 
-        return stdin, stdout, stderr
+        return cmd

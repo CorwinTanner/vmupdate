@@ -1,9 +1,12 @@
+import logging
 from subprocess import list2cmdline
 
 from paramiko import SSHClient, AutoAddPolicy
 
+log = logging.getLogger(__name__)
 
-class Channel:
+
+class Channel(object):
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
@@ -24,8 +27,28 @@ class Channel:
         if isinstance(args, list):
             args = list2cmdline(args)
 
-        return self.ssh.exec_command(args)
+        log.debug('Running command: %s', args)
+
+        stdin, stdout, stderr = self.ssh.exec_command(args)
+
+        return ChannelCommand(stdin, stdout, stderr)
 
     def close(self):
         if self.ssh:
             self.ssh.close()
+
+
+class ChannelCommand(object):
+    def __init__(self, stdin, stdout, stderr):
+        self.stdin = stdin
+        self.stdout = stdout
+        self.stderr = stderr
+
+    def wait(self):
+        for line in self.stdout:
+            log.debug(line)
+
+        for line in self.stderr:
+            log.error(line)
+
+        return self.stdout.channel.recv_exit_status()
