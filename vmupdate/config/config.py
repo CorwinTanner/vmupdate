@@ -4,6 +4,8 @@ import pkgutil
 
 import yaml
 
+from vmupdate import BASE_DIR
+
 from .configsection import ConfigSection
 from .credentials import Credentials
 from .general import General
@@ -64,9 +66,11 @@ class Config(ConfigSection):
 
         self._logging = yaml.load(pkgutil.get_data('vmupdate', 'data/logging.yaml'))
 
-        if log_dir:
-            self._set_log_filename(log_dir, 'info_file')
-            self._set_log_filename(log_dir, 'error_file')
+        if not log_dir:
+            log_dir = BASE_DIR
+
+        self._set_log_filename(log_dir, 'info_file')
+        self._set_log_filename(log_dir, 'error_file')
 
         logging.config.dictConfig(self._logging)
 
