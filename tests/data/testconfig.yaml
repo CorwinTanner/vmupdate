@@ -1,0 +1,21 @@
+Credentials:
+  Username: defaulttestuser
+  Use Keyring: false
+  Run As Elevated: false
+
+Network:
+  SSH:
+    Guest:
+      Port: 33
+    Host:
+      Ports:
+        Max: 65000
+
+Machines:
+  Test Machine 1:
+    Username: testuser1
+    Password: testpass1
+    Run As Elevated: true
+  Test Machine 2:
+    Username: testuser2
+    Use Keyring: true
