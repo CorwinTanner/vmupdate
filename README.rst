@@ -1,4 +1,4 @@
-.. image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=master
+.. image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=develop
     :target: https://travis-ci.org/CorwinTanner/vmupdate
 
 ********
