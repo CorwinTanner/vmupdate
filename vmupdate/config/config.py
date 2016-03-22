@@ -1,4 +1,5 @@
 import logging.config
+import os
 import pkgutil
 
 import yaml
@@ -42,7 +43,7 @@ class Config(ConfigSection):
     def machines(self):
         return self._machines
 
-    def load(self, config_path=None):
+    def load(self, config_path=None, log_dir=None):
         default_config = yaml.load(pkgutil.get_data('vmupdate', 'data/vmupdate.yaml'))
 
         if config_path:
@@ -63,7 +64,16 @@ class Config(ConfigSection):
 
         self._logging = yaml.load(pkgutil.get_data('vmupdate', 'data/logging.yaml'))
 
+        if log_dir:
+            self._set_log_filename(log_dir, 'info_file')
+            self._set_log_filename(log_dir, 'error_file')
+
         logging.config.dictConfig(self._logging)
+
+    def _set_log_filename(self, log_dir, handler_name):
+        if handler_name in self._logging['handlers']:
+            self._logging['handlers'][handler_name]['filename'] =\
+                os.path.join(log_dir, self._logging['handlers'][handler_name]['filename'])
 
 
 def merge(a, b):
