@@ -1,8 +1,11 @@
+import logging
 import re
 import subprocess
 
 from .constants import *
 from .virtualizer import Virtualizer
+
+log = logging.getLogger(__name__)
 
 
 class VirtualBox(Virtualizer):
@@ -10,11 +13,14 @@ class VirtualBox(Virtualizer):
         self.manager_path = manager_path
 
     def list_vms(self):
-        cmd = subprocess.Popen([self.manager_path, 'list', 'vms'], stdout=subprocess.PIPE)
+        cmd = subprocess.Popen([self.manager_path, 'list', 'vms'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         vms = []
 
         stdoutdata, stderrdata = cmd.communicate()
+
+        if stderrdata:
+            log.error(stderrdata)
 
         if stdoutdata:
             matches = re.finditer(r"""^"(?P<name>[^"]+)"\s+\{(?P<uuid>[^}]+)\}""",
@@ -28,19 +34,27 @@ class VirtualBox(Virtualizer):
         return vms
 
     def start_vm(self, uid):
-        cmd = subprocess.Popen([self.manager_path, 'startvm', uid, '--type', 'headless'])
+        cmd = subprocess.Popen([self.manager_path, 'startvm', uid, '--type', 'headless'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        stdoutdata, stderrdata = cmd.communicate()
+
+        if stderrdata:
+            log.error(stderrdata)
 
         return cmd.wait()
 
     def stop_vm(self, uid):
-        cmd = subprocess.Popen([self.manager_path, 'controlvm', uid, 'poweroff'])
+        cmd = subprocess.Popen([self.manager_path, 'controlvm', uid, 'poweroff'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         return cmd.wait()
 
     def get_vm_status(self, uid):
-        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE)
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
+
+        if stderrdata:
+            log.error(stderrdata)
 
         if stdoutdata:
             match = re.search(r"""^State:\s*(?P<state>[a-z\s]*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
@@ -60,9 +74,12 @@ class VirtualBox(Virtualizer):
         return VM_UNKNOWN
 
     def get_vm_os(self, uid):
-        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE)
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
+
+        if stderrdata:
+            log.error(stderrdata)
 
         if stdoutdata:
             match = re.search(r"""^Guest OS:\s*(?P<os>[a-z\s]*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
@@ -102,9 +119,12 @@ class VirtualBox(Virtualizer):
         return OS_UNKNOWN
 
     def get_ssh_info(self, uid, ssh_port):
-        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE)
+        cmd = subprocess.Popen([self.manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
+
+        if stderrdata:
+            log.error(stderrdata)
 
         if stdoutdata:
             matches = re.finditer(r"""^NIC \d+ Rule\(\d+\):\s*name = (?P<name>[^,]*), protocol = (?P<protocol>(tcp|udp)), host ip = (?P<hostip>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), host port = (?P<hostport>\d*), guest ip = (?P<guestip>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), guest port = (?P<guestport>\d*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
@@ -118,5 +138,10 @@ class VirtualBox(Virtualizer):
 
     def enable_ssh(self, uid, host_port, guest_port):
         cmd = subprocess.Popen([self.manager_path, 'modifyvm', uid, '--natpf1', 'ssh,tcp,,{0},,{1}'.format(host_port, guest_port)])
+
+        stdoutdata, stderrdata = cmd.communicate()
+
+        if stderrdata:
+            log.error(stderrdata)
 
         return cmd.wait()

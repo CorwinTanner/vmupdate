@@ -8,3 +8,7 @@ class General(ConfigSection):
     @property
     def wait_after_start(self):
         return self['Wait After Start']
+
+    @property
+    def wait_before_stop(self):
+        return self['Wait Before Stop']

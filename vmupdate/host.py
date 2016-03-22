@@ -36,6 +36,7 @@ def update_all_vms():
 
         if vm_orig_status == VM_STOPPED:
             log.info('Stopping %s', vm.uid)
+            time.sleep(config.general.wait_before_stop)
             vm.stop()
 
         log.info('Finished update on %s', vm.uid)

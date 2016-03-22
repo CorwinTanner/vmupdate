@@ -2,6 +2,7 @@ import logging
 
 from .config import config
 from .credentials import get_credentials, get_run_as_elevated
+from .errors import UpdateError
 
 log = logging.getLogger(__name__)
 
@@ -28,14 +29,10 @@ def run_pkgmgr(vm, pkgmgr, cmds):
 
     with vm.connect() as shell:
         for cmd in cmds:
-            stdin, stdout, stderr = run_pkgmgr_cmd(vm, shell, pkgmgr, cmd)
+            cmd = run_pkgmgr_cmd(vm, shell, pkgmgr, cmd)
 
-            exitcode = stdout.channel.recv_exit_status()
-
-            if exitcode != 0:
-                return exitcode
-
-    return 0
+            if cmd.wait() != 0:
+                raise UpdateError('Update failed')
 
 
 def run_pkgmgr_cmd(vm, shell, pkgmgr, cmd):

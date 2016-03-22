@@ -9,10 +9,11 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-c', '--config', help='use specified config path')
+    parser.add_argument('-l', '--logdir', help='directory for log files')
 
     args = parser.parse_args()
 
-    config.load(args.config)
+    config.load(args.config, args.logdir)
 
     update_all_vms()
 

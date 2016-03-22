@@ -1,5 +1,6 @@
 General:
   Wait After Start: 30
+  Wait Before Stop: 10
 
 Credentials:
   Username: root
