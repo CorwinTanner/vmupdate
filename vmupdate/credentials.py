@@ -18,18 +18,33 @@ def get_username(uid):
 
 
 def get_password(username, uid):
-    if uid in config.machines:
-        if config.machines[uid].password:
-            return config.machines[uid].password
-        elif config.machines[uid].use_keyring == True:
-            return keyring.get_password(uid, username)
-        elif config.machines[uid].use_keyring == False:
-            return config.credentials.password
+    if uid in config.machines and config.machines[uid].password:
+        return config.machines[uid].password
+    elif get_use_keyring(uid):
+        password = get_keyring_password(username, uid)
 
-    if config.credentials.use_keyring:
-        return keyring.get_password('vmupdate', username)
+        if password:
+            return password
 
     return config.credentials.password
+
+
+def get_keyring_password(username, uid):
+    if uid in config.machines:
+        password = keyring.get_password(uid, username)
+
+        if password:
+            return password
+
+    return keyring.get_password('vmupdate', username)
+
+
+def get_use_keyring(uid):
+    if uid in config.machines and config.machines[uid].use_keyring is not None:
+        return config.machines[uid].use_keyring
+
+    return config.credentials.use_keyring
+
 
 def get_run_as_elevated(uid):
     if uid in config.machines and config.machines[uid].run_as_elevated is not None:
