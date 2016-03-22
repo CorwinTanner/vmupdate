@@ -11,6 +11,7 @@ class ConfigTestCase(unittest.TestCase):
 
     def test_general(self):
         self.assertEqual(config.general.wait_after_start, 30)
+        self.assertEqual(config.general.wait_before_stop, 10)
 
     def test_credentials(self):
         self.assertEqual(config.credentials.username, 'root')
