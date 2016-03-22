@@ -4,3 +4,7 @@ class AppError(Exception):
 
 class SshError(AppError):
     pass
+
+
+class UpdateError(AppError):
+    pass
