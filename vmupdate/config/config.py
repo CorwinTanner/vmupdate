@@ -67,7 +67,7 @@ class Config(ConfigSection):
 
 
 def merge(a, b):
-    if not b:
+    if b is None:
         return a
 
     if isinstance(a, dict):
