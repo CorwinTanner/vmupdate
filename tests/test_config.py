@@ -14,6 +14,7 @@ class ConfigTestCase(unittest.TestCase):
 
     def test_credentials(self):
         self.assertEqual(config.credentials.username, 'root')
+        self.assertIsNone(config.credentials.password)
         self.assertTrue(config.credentials.use_keyring)
         self.assertTrue(config.credentials.run_as_elevated)
 
@@ -36,7 +37,8 @@ class UserConfigTestCase(unittest.TestCase):
 
     def test_credentials(self):
         self.assertEqual(config.credentials.username, 'defaulttestuser')
-        self.assertFalse(config.credentials.use_keyring)
+        self.assertEqual(config.credentials.password, 'defaulttestpass')
+        self.assertTrue(config.credentials.use_keyring)
         self.assertFalse(config.credentials.run_as_elevated)
 
     def test_network(self):
@@ -52,4 +54,4 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertIn('Test Machine 2', config.machines)
         self.assertEqual(config.machines['Test Machine 2'].username, 'testuser2')
         self.assertIsNone(config.machines['Test Machine 2'].password)
-        self.assertTrue(config.machines['Test Machine 2'].use_keyring)
+        self.assertFalse(config.machines['Test Machine 2'].use_keyring)

@@ -1,6 +1,6 @@
 Credentials:
   Username: defaulttestuser
-  Use Keyring: false
+  Password: defaulttestpass
   Run As Elevated: false
 
 Network:
@@ -18,4 +18,8 @@ Machines:
     Run As Elevated: true
   Test Machine 2:
     Username: testuser2
-    Use Keyring: true
+  Test Machine 3:
+    Username: testuser3
+  Test Machine 4:
+    Username: testuser4
+    Use Keyring: false
