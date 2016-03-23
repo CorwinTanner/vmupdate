@@ -8,19 +8,20 @@ from vmupdate.channel import Channel
 class ChannelTestCase(unittest.TestCase):
     TEST_HOST = 'testhost'
     TEST_PORT = 0
-    TEST_USERNAME = 'testuser'
-    TEST_PASSWORD = 'testpass'
 
     @mock.patch('vmupdate.channel.SSHClient', autospec=True)
     def test_connect(self, mock_ssh):
+        test_user = 'testuser'
+        test_pass = 'testpass'
+
         channel = Channel(ChannelTestCase.TEST_HOST, ChannelTestCase.TEST_PORT)
 
-        channel.connect(ChannelTestCase.TEST_USERNAME, ChannelTestCase.TEST_PASSWORD)
+        channel.connect(test_user, test_pass)
 
         mock_ssh.return_value.connect.assert_called_once_with(ChannelTestCase.TEST_HOST,
                                                               port=ChannelTestCase.TEST_PORT,
-                                                              username=ChannelTestCase.TEST_USERNAME,
-                                                              password=ChannelTestCase.TEST_PASSWORD)
+                                                              username=test_user,
+                                                              password=test_pass)
 
     @mock.patch('vmupdate.channel.SSHClient', autospec=True)
     def test_close(self, mock_ssh):
@@ -31,7 +32,11 @@ class ChannelTestCase(unittest.TestCase):
 
     @mock.patch('vmupdate.channel.SSHClient', autospec=True)
     def test_run(self, mock_ssh):
-        mock_ssh.return_value.exec_command.return_value = 'testin', 'testout', 'testerr'
+        test_stdin = 'testin'
+        test_stdout = 'testout'
+        test_stderr = 'testerr'
+
+        mock_ssh.return_value.exec_command.return_value = (test_stdin, test_stdout, test_stderr)
 
         channel = Channel(ChannelTestCase.TEST_HOST, ChannelTestCase.TEST_PORT)
 
@@ -39,6 +44,6 @@ class ChannelTestCase(unittest.TestCase):
 
         mock_ssh.return_value.exec_command.assert_called_once_with('some test command')
 
-        self.assertEqual(cmd.stdin, 'testin')
-        self.assertEqual(cmd.stdout, 'testout')
-        self.assertEqual(cmd.stderr, 'testerr')
+        self.assertEqual(cmd.stdin, test_stdin)
+        self.assertEqual(cmd.stdout, test_stdout)
+        self.assertEqual(cmd.stderr, test_stderr)
