@@ -2,10 +2,10 @@ version: 1
 disable_existing_loggers: false
 formatters:
   console:
-    format: '%(name)s - %(levelname)s - %(message)s'
+    format: '%(levelname)-8s - %(message)s'
   simple:
-    format: '%(asctime)s - %(levelname)s - %(message)s'
-    datefmt: '%Y/%m/%d/ %H:%M:%S'
+    format: '%(asctime)s - %(levelname)-8s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
 handlers:
   console:
     class: logging.StreamHandler
