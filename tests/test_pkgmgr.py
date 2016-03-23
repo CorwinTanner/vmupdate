@@ -2,6 +2,7 @@ import unittest
 
 import mock
 
+from vmupdate.channel import ChannelCommand
 from vmupdate.config import config
 from vmupdate.pkgmgr import get_pkgmgrs, run_pkgmgr, run_pkgmgr_cmd
 from vmupdate.shells.posix import Posix
@@ -32,9 +33,9 @@ class PkgMgrTestCase(unittest.TestCase):
         self.assertEqual(len(pkgmgrs), 1)
         self.assertEqual(pkgmgrs[0][0], 'apt-get')
 
-    @mock.patch('vmupdate.pkgmgr.run_pkgmgr_cmd')
+    @mock.patch('vmupdate.pkgmgr.run_pkgmgr_cmd', autospec=True)
     def test_run_pkgmgr(self, mock_run_pkgmgr_cmd):
-        mock_cmd = mock.MagicMock()
+        mock_cmd = mock.MagicMock(spec=ChannelCommand)
         mock_cmd.wait.return_value = 0
 
         mock_run_pkgmgr_cmd.return_value = mock_cmd
