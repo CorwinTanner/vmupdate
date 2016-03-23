@@ -46,9 +46,10 @@ class ChannelCommand(object):
 
     def wait(self):
         for line in self.stdout:
-            log.debug(line)
+            log.debug(line.rstrip())
 
         for line in self.stderr:
-            log.error(line)
+            if not line.startswith('[sudo]'):
+                log.error(line.rstrip())
 
         return self.stdout.channel.recv_exit_status()
