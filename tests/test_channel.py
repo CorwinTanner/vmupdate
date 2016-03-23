@@ -17,7 +17,7 @@ class ChannelTestCase(unittest.TestCase):
 
         channel.connect(ChannelTestCase.TEST_USERNAME, ChannelTestCase.TEST_PASSWORD)
 
-        mock_ssh.return_value.connect.assert_called_once_with(hostname=ChannelTestCase.TEST_HOST,
+        mock_ssh.return_value.connect.assert_called_once_with(ChannelTestCase.TEST_HOST,
                                                               port=ChannelTestCase.TEST_PORT,
                                                               username=ChannelTestCase.TEST_USERNAME,
                                                               password=ChannelTestCase.TEST_PASSWORD)
