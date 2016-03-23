@@ -1,3 +1,5 @@
+.coverage
+
 *.py[cod]
 *$py.class
 
