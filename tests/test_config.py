@@ -1,5 +1,7 @@
 import unittest
 
+import mock
+
 from vmupdate.config import config
 
 from tests.context import get_data_path
@@ -31,7 +33,7 @@ class ConfigTestCase(unittest.TestCase):
 
 class UserConfigTestCase(unittest.TestCase):
     def setUp(self):
-        config.load(get_data_path('testconfig.yaml'))
+        config.load(config_path=get_data_path('testconfig.yaml'))
 
     def test_general(self):
         self.assertEqual(config.general.wait_after_start, 30)
@@ -56,3 +58,18 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertEqual(config.machines['Test Machine 2'].username, 'testuser2')
         self.assertIsNone(config.machines['Test Machine 2'].password)
         self.assertFalse(config.machines['Test Machine 2'].use_keyring)
+
+
+class UserLogTestCase(unittest.TestCase):
+    TEST_LOG_DIR = 'testdir'
+
+    @mock.patch('logging.config.dictConfig')
+    def test_log_dir(self, mock_dict_config):
+        config.load(log_dir=UserLogTestCase.TEST_LOG_DIR)
+
+        self.assertTrue(mock_dict_config.called)
+
+        logging_config = mock_dict_config.call_args[0][0]
+
+        self.assert_(logging_config['handlers']['info_file']['filename'].startswith(UserLogTestCase.TEST_LOG_DIR))
+        self.assert_(logging_config['handlers']['error_file']['filename'].startswith(UserLogTestCase.TEST_LOG_DIR))
