@@ -8,7 +8,8 @@ from tests.context import get_data_path
 
 
 class ConfigTestCase(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         config.load()
 
     def test_general(self):
@@ -32,7 +33,8 @@ class ConfigTestCase(unittest.TestCase):
 
 
 class UserConfigTestCase(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         config.load(config_path=get_data_path('testconfig.yaml'))
 
     def test_general(self):
