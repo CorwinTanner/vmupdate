@@ -2,4 +2,4 @@ PyYAML>=3
 keyring>=8
 paramiko>=1
 mock>=1
-coveralls>=1.1
+coveralls>=1
