@@ -1,5 +1,4 @@
-.. image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=develop
-    :target: https://travis-ci.org/CorwinTanner/vmupdate
+|build| |coverage|
 
 ********
 vmupdate
@@ -139,3 +138,10 @@ PyCrypto Install
 
 If you get a PyCrypto build error during installation please see the `paramiko install docs
 <http://www.paramiko.org/installing.html#pycrypto>`_.
+
+
+.. |build| image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=master
+    :target: https://travis-ci.org/CorwinTanner/vmupdate
+
+.. |coverage| image:: https://coveralls.io/repos/github/CorwinTanner/vmupdate/badge.svg?branch=master
+    :target: https://coveralls.io/github/CorwinTanner/vmupdate?branch=master
