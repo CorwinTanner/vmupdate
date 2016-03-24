@@ -71,7 +71,7 @@ class VMTestCase(unittest.TestCase):
         self.mock_virt.enable_ssh.assert_called_once_with(VMTestCase.TEST_UID, test_host_port, self.vm.ssh_port)
 
     @mock.patch('vmupdate.vm.Channel', autospec=True)
-    @mock.patch('vmupdate.vm.get_credentials')
+    @mock.patch('vmupdate.vm.get_credentials', autospec=True)
     def test_connect(self, mock_get_credentials, mock_channel):
         test_host = 'testhost'
         test_port = 'testport'
