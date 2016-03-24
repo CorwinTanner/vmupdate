@@ -84,9 +84,9 @@ def find_virtualizers():
     for name, paths in config.virtualizers[platform.system()].items():
         try:
             for path in paths:
-                log.debug('Checking virtualizer "%s"', path)
-
                 path = os.path.expandvars(path)
+
+                log.debug('Checking virtualizer "%s"', path)
 
                 if os.path.isfile(path):
                     virtualizer[name] = path

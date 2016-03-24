@@ -1,5 +1,4 @@
-.. image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=master
-    :target: https://travis-ci.org/CorwinTanner/vmupdate
+|build| |coverage|
 
 ********
 vmupdate
@@ -39,6 +38,12 @@ Or specify a custom config:
 
     $ vmupdate --config "/path/to/config.yaml"
 
+Or logging directory:
+
+.. code-block:: bash
+
+    $ vmupdate --logdir "/path/to/logdir"
+
 =============
 Configuration
 =============
@@ -59,8 +64,8 @@ This method is included for simplicity, but is not recommended due to the inhere
 Keyring
 --------
 
-If a ``Password`` is not specified and ``Use Keyring`` is ``True`` (default) the password will be retrieved from your host
-OS's keyring provider under the name ``vmupdate``.
+If a ``Password`` is not specified and ``Use Keyring`` is ``True`` (default) the password will be retrieved from your
+host OS's keyring provider first under the name of your VM and then under the general key ``vmupdate``.
 
 .. code-block:: yaml
 
@@ -84,7 +89,7 @@ The ``Machines`` section of the config file allows some options to be overriden 
         Use Keyring: true
 
 If a ``Password`` is not specified and ``Use Keyring`` is ``True`` the password will be retrieved from your host OS's
-keyring provider under the name of the VM (i.e. ``My Arch Box``).
+keyring provider under the name of the VM (i.e. ``My Arch Box``) and then under the general key ``vmupdate``.
 
 ========
 Features
@@ -126,3 +131,17 @@ Port Forwarding
 An attempt will be made to forward port 22 on each VM to a unique port on the host if such a forward does not already
 exist. This only needs to be done once per virtual machine and can only occur if the VM is in a *stopped* state. If
 the automatic port forwarding fails, you can configure it yourself using your virtualizer.
+
+----------------
+PyCrypto Install
+----------------
+
+If you get a PyCrypto build error during installation please see the `paramiko install docs
+<http://www.paramiko.org/installing.html#pycrypto>`_.
+
+
+.. |build| image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=master
+    :target: https://travis-ci.org/CorwinTanner/vmupdate
+
+.. |coverage| image:: https://coveralls.io/repos/github/CorwinTanner/vmupdate/badge.svg?branch=master
+    :target: https://coveralls.io/github/CorwinTanner/vmupdate?branch=master
