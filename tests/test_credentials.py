@@ -12,7 +12,7 @@ class CredentialsTestCase(unittest.TestCase):
     def setUp(self):
         config.load(get_data_path('testconfig.yaml'))
 
-    @mock.patch('keyring.get_password')
+    @mock.patch('keyring.get_password', autospec=True)
     def test_get_credentials(self, keyring_mock):
         def keyring_get_password(service_name, username):
             if service_name == 'Test Machine 2' and username == 'testuser2':

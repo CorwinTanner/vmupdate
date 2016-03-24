@@ -9,7 +9,13 @@ Network:
       Port: 33
     Host:
       Ports:
+        Min: 49152
         Max: 65000
+
+Virtualizers:
+  Test OS:
+    TestVirtualizer:
+      - /test/path/virt
 
 Machines:
   Test Machine 1:
