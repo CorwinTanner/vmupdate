@@ -3,6 +3,7 @@ import unittest
 import mock
 
 from vmupdate.config import config
+from vmupdate.config.config import merge
 
 from tests.context import get_data_path
 
@@ -75,3 +76,44 @@ class UserLogTestCase(unittest.TestCase):
 
         self.assert_(logging_config['handlers']['info_file']['filename'].startswith(UserLogTestCase.TEST_LOG_DIR))
         self.assert_(logging_config['handlers']['error_file']['filename'].startswith(UserLogTestCase.TEST_LOG_DIR))
+
+class MergeTestCase(unittest.TestCase):
+    def test_merge(self):
+        a = {
+            'key1': 'value1',
+            'key2': 'value2',
+            'list1': ['item1', 'item2'],
+            'list2': ['item3', 'item4'],
+            'dict1': {
+                'key3': 'value3',
+                'key4': 'value4',
+                'key5': 'value5',
+                'dict2': {
+                    'key6': 'value6',
+                    'key7': 'value7',
+                }
+            },
+        }
+        b = {
+            'key2': 'newvalue1',
+            'list2': ['newitem1', 'newitem2'],
+            'dict1': {
+                'key4': None,
+                'key5': 'newvalue2',
+                'dict2': {
+                    'key6': 'newvalue3'
+                }
+            },
+        }
+
+        merged = merge(a, b)
+
+        self.assertEqual(merged['key1'], 'value1')
+        self.assertEqual(merged['key2'], 'newvalue1')
+        self.assertListEqual(merged['list1'], ['item1', 'item2'])
+        self.assertListEqual(merged['list2'], ['newitem1', 'newitem2'])
+        self.assertEqual(merged['dict1']['key3'], 'value3')
+        self.assertEqual(merged['dict1']['key4'], 'value4')
+        self.assertEqual(merged['dict1']['key5'], 'newvalue2')
+        self.assertEqual(merged['dict1']['dict2']['key6'], 'newvalue3')
+        self.assertEqual(merged['dict1']['dict2']['key7'], 'value7')
