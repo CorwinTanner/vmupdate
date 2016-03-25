@@ -77,6 +77,13 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertFalse(config.machines['Test Machine 2'].use_keyring)
         self.assertEqual(config.machines['Test Machine 2'].shell, 'TestShell')
 
+    def test_configsection(self):
+        self.assertGreater(len(config.machines), 0)
+        self.assertEqual(next(config.machines.iterkeys()), config.machines.keys()[0])
+        self.assertEqual(next(config.machines.iteritems()), config.machines.items()[0])
+        self.assertEqual(next(config.machines.itervalues()), config.machines.values()[0])
+        self.assertIsNotNone(iter(config.machines))
+
 
 class UserLogTestCase(unittest.TestCase):
     TEST_LOG_DIR = 'testdir'
