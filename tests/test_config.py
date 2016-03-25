@@ -52,6 +52,20 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertEqual(config.network.ssh.host_min_port, 49152)
         self.assertEqual(config.network.ssh.host_max_port, 65000)
 
+    def test_virtualizers(self):
+        self.assertIn('TestOS', config.virtualizers)
+        self.assertIn('TestVirtualizer', config.virtualizers['TestOS'])
+        self.assertListEqual(config.virtualizers['TestOS']['TestVirtualizer'], ['/test/path/virt'])
+
+    def test_pkgmgrs(self):
+        self.assertIn('TestOS', config.pkgmgrs)
+        self.assertIn('testpkgmgr', config.pkgmgrs['TestOS'])
+        self.assertListEqual(config.pkgmgrs['TestOS']['testpkgmgr'], ['update', 'upgrade'])
+
+    def test_shells(self):
+        self.assertIn('TestOS', config.shells)
+        self.assertEqual(config.shells['TestOS'], 'TestShell')
+
     def test_machines(self):
         self.assertIn('Test Machine 1', config.machines)
         self.assertEqual(config.machines['Test Machine 1'].username, 'testuser1')
