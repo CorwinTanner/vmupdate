@@ -61,6 +61,7 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertEqual(config.machines['Test Machine 2'].username, 'testuser2')
         self.assertIsNone(config.machines['Test Machine 2'].password)
         self.assertFalse(config.machines['Test Machine 2'].use_keyring)
+        self.assertEqual(config.machines['Test Machine 2'].shell, 'TestShell')
 
 
 class UserLogTestCase(unittest.TestCase):

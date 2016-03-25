@@ -13,9 +13,12 @@ Network:
         Max: 65000
 
 Virtualizers:
-  Test OS:
+  TestOS:
     TestVirtualizer:
       - /test/path/virt
+
+Shells:
+  TestOS: TestShell
 
 Machines:
   Test Machine 1:
@@ -24,6 +27,7 @@ Machines:
     Run As Elevated: true
   Test Machine 2:
     Username: testuser2
+    Shell: TestShell
   Test Machine 3:
     Username: testuser3
   Test Machine 4:

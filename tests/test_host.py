@@ -77,7 +77,7 @@ class HostTestCase(unittest.TestCase):
     @mock.patch('os.path.isfile', autospec=True)
     @mock.patch('platform.system', autospec=True)
     def test_find_virtualizers(self, mock_system, mock_isfile):
-        mock_system.return_value = 'Test OS'
+        mock_system.return_value = 'TestOS'
         mock_isfile.return_value = True
 
         virts = find_virtualizers()
