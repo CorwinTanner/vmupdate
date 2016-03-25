@@ -2,7 +2,7 @@ import unittest
 
 import mock
 
-from vmupdate.channel import Channel
+from vmupdate.channel import Channel, ChannelCommand
 
 
 class ChannelTestCase(unittest.TestCase):
@@ -47,3 +47,23 @@ class ChannelTestCase(unittest.TestCase):
         self.assertEqual(cmd.stdin, test_stdin)
         self.assertEqual(cmd.stdout, test_stdout)
         self.assertEqual(cmd.stderr, test_stderr)
+
+
+class ChannelCommandTestCase(unittest.TestCase):
+    def test_wait(self):
+        test_exitcode = -1
+
+        mock_stdin = mock.MagicMock()
+        mock_stdout = mock.MagicMock()
+        mock_stderr = mock.MagicMock()
+
+        mock_stdout.channel.recv_exit_status.return_value = test_exitcode
+        mock_stdout.__iter__ = mock.Mock(return_value=iter(['stdoutline1']))
+        mock_stderr.__iter__ = mock.Mock(return_value=iter(['stderrline1']))
+
+        cmd = ChannelCommand(mock_stdin, mock_stdout, mock_stderr)
+
+        self.assertEqual(cmd.wait(), test_exitcode)
+
+        mock_stdout.__iter__.assert_called_once_with()
+        mock_stderr.__iter__.assert_called_once_with()
