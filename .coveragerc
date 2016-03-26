@@ -1,0 +1,3 @@
+[run]
+source = vmupdate
+omit = vmupdate/virtualizers/virtualizer.py
