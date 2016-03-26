@@ -21,16 +21,16 @@ class VirtualboxTestCase(unittest.TestCase):
     def setUp(self):
         self.virt = VirtualBox(VirtualboxTestCase.TEST_PATH)
 
-        mock_popen_patch = mock.patch('subprocess.Popen', autospec=True)
-        self.mock_popen = mock_popen_patch.start()
+        patch_popen = mock.patch('subprocess.Popen', autospec=True)
+        self.addCleanup(patch_popen.stop)
+
+        self.mock_popen = patch_popen.start()
 
         self.mock_cmd = mock.Mock()
         self.mock_cmd.wait.return_value = 0
         self.mock_cmd.communicate.return_value = 'stdoutdata', 'stderrdata'
 
         self.mock_popen.return_value = self.mock_cmd
-
-        self.addCleanup(mock_popen_patch.stop)
 
     def test_get_virtualizer(self):
         virt = get_virtualizer('VirtualBox', None)
