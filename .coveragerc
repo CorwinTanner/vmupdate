@@ -1,3 +1,8 @@
 [run]
 source = vmupdate
-omit = vmupdate/virtualizers/virtualizer.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    pass
+    if __name__ == .__main__.:
