@@ -1,0 +1,126 @@
+Name:            Test Machine 1
+Groups:          /
+Guest OS:        Ubuntu (64-bit)
+UUID:            b243d621-8003-43e5-9ff4-3e87b2c1b303
+Config file:     C:\Users\TestUser\VirtualBox VMs\Test Machine 1\Test Machine 1.vbox
+Snapshot folder: C:\Users\TestUser\VirtualBox VMs\Test Machine 1\Snapshots
+Log folder:      C:\Users\TestUser\VirtualBox VMs\Test Machine 1\Logs
+Hardware UUID:   6a862feb-3797-4023-8c23-1304f5bc7146
+Memory size:     4096MB
+Page Fusion:     off
+VRAM size:       128MB
+CPU exec cap:    100%
+HPET:            off
+Chipset:         piix3
+Firmware:        BIOS
+Number of CPUs:  4
+PAE:             off
+Long Mode:       on
+CPUID Portability Level: 0
+CPUID overrides: None
+Boot menu mode:  message and menu
+Boot Device (1): DVD
+Boot Device (2): HardDisk
+Boot Device (3): Not Assigned
+Boot Device (4): Not Assigned
+ACPI:            on
+IOAPIC:          on
+Time offset:     0ms
+RTC:             UTC
+Hardw. virt.ext: on
+Nested Paging:   on
+Large Pages:     on
+VT-x VPID:       on
+VT-x unr. exec.: on
+Paravirt. Provider: Default
+State:           running (since 2016-03-25T23:11:46.252000000)
+Monitor count:   1
+3D Acceleration: on
+2D Video Acceleration: off
+Teleporter Enabled: off
+Teleporter Port: 0
+Teleporter Address:
+Teleporter Password:
+Tracing Enabled: off
+Allow Tracing to Access VM: off
+Tracing Configuration:
+Autostart Enabled: off
+Autostart Delay: 0
+Default Frontend:
+Storage Controller Name (0):            IDE
+Storage Controller Type (0):            PIIX4
+Storage Controller Instance Number (0): 0
+Storage Controller Max Port Count (0):  2
+Storage Controller Port Count (0):      2
+Storage Controller Bootable (0):        on
+Storage Controller Name (1):            SATA
+Storage Controller Type (1):            IntelAhci
+Storage Controller Instance Number (1): 0
+Storage Controller Max Port Count (1):  30
+Storage Controller Port Count (1):      1
+Storage Controller Bootable (1):        on
+IDE (1, 0): Empty
+SATA (0, 0): C:\Users\TestUser\VirtualBox VMs\Test Machine 1\Test Machine 1.vdi (UUID: 9455e408-f075-4f53-a174-767e939eca01)
+NIC 1:           MAC: 56059091J2VF, Attachment: NAT, Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 1 Settings:  MTU: 0, Socket (send: 64, receive: 64), TCP Window (send:64, receive: 64)
+NIC 1 Rule(0):   name = ssh, protocol = tcp, host ip = , host port = 49152, guest ip = , guest port = 22
+NIC 2:           disabled
+NIC 3:           disabled
+NIC 4:           disabled
+NIC 5:           disabled
+NIC 6:           disabled
+NIC 7:           disabled
+NIC 8:           disabled
+Pointing Device: USB Tablet
+Keyboard Device: PS/2 Keyboard
+UART 1:          disabled
+UART 2:          disabled
+UART 3:          disabled
+UART 4:          disabled
+LPT 1:           disabled
+LPT 2:           disabled
+Audio:           enabled (Driver: DSOUND, Controller: AC97, Codec: AD1980)
+Clipboard Mode:  Bidirectional
+Drag and drop Mode: disabled
+Session name:    headless
+Video mode:      640x480x32 at 0,0 enabled
+VRDE:            disabled
+USB:             enabled
+EHCI:            disabled
+XHCI:            disabled
+
+USB Device Filters:
+
+<none>
+
+Available remote USB devices:
+
+<none>
+
+Currently Attached USB Devices:
+
+<none>
+
+Bandwidth groups:  <none>
+
+Shared folders:  <none>
+
+VRDE Connection:    not active
+Clients so far:     0
+
+Video capturing:    not active
+Capture screens:    0
+Capture file:       C:\Users\TestUser\VirtualBox VMs\Test Machine 1\Test Machine 1.webm
+Capture dimensions: 1024x768
+Capture rate:       512 kbps
+Capture FPS:        25
+
+Guest:
+
+Configured memory balloon size:      0 MB
+OS type:                             Ubuntu_64
+Additions run level:                 0
+
+Guest Facilities:
+
+No active facilities.
