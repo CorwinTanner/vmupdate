@@ -24,7 +24,7 @@ Package Managers:
       - upgrade
 
 Shells:
-  TestOS: TestShell
+  TestOS: Posix
 
 Machines:
   Test Machine 1:
@@ -33,7 +33,7 @@ Machines:
     Run As Elevated: true
   Test Machine 2:
     Username: testuser2
-    Shell: TestShell
+    Shell: Posix
   Test Machine 3:
     Username: testuser3
   Test Machine 4:

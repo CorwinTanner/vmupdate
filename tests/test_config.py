@@ -5,6 +5,7 @@ import mock
 from vmupdate.config import config
 from vmupdate.config.config import merge
 
+from tests.constants import *
 from tests.context import get_data_path
 
 
@@ -48,23 +49,23 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertFalse(config.credentials.run_as_elevated)
 
     def test_network(self):
-        self.assertEqual(config.network.ssh.guest_port, 33)
+        self.assertEqual(config.network.ssh.guest_port, TEST_GUEST_PORT)
         self.assertEqual(config.network.ssh.host_min_port, 49152)
         self.assertEqual(config.network.ssh.host_max_port, 65000)
 
     def test_virtualizers(self):
-        self.assertIn('TestOS', config.virtualizers)
-        self.assertIn('TestVirtualizer', config.virtualizers['TestOS'])
-        self.assertListEqual(config.virtualizers['TestOS']['TestVirtualizer'], ['/test/path/virt'])
+        self.assertIn(TEST_OS, config.virtualizers)
+        self.assertIn(TEST_VIRTUALIZER, config.virtualizers[TEST_OS])
+        self.assertListEqual(config.virtualizers[TEST_OS][TEST_VIRTUALIZER], [TEST_VIRTUALIZER_PATH])
 
     def test_pkgmgrs(self):
-        self.assertIn('TestOS', config.pkgmgrs)
-        self.assertIn('testpkgmgr', config.pkgmgrs['TestOS'])
-        self.assertListEqual(config.pkgmgrs['TestOS']['testpkgmgr'], ['update', 'upgrade'])
+        self.assertIn(TEST_OS, config.pkgmgrs)
+        self.assertIn(TEST_PKGMGR, config.pkgmgrs[TEST_OS])
+        self.assertListEqual(config.pkgmgrs[TEST_OS][TEST_PKGMGR], ['update', 'upgrade'])
 
     def test_shells(self):
-        self.assertIn('TestOS', config.shells)
-        self.assertEqual(config.shells['TestOS'], 'TestShell')
+        self.assertIn(TEST_OS, config.shells)
+        self.assertEqual(config.shells[TEST_OS], TEST_SHELL)
 
     def test_machines(self):
         self.assertIn('Test Machine 1', config.machines)
@@ -75,7 +76,7 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertEqual(config.machines['Test Machine 2'].username, 'testuser2')
         self.assertIsNone(config.machines['Test Machine 2'].password)
         self.assertFalse(config.machines['Test Machine 2'].use_keyring)
-        self.assertEqual(config.machines['Test Machine 2'].shell, 'TestShell')
+        self.assertEqual(config.machines['Test Machine 2'].shell, TEST_SHELL)
 
     def test_configsection(self):
         self.assertGreater(len(config.machines), 0)
@@ -86,18 +87,17 @@ class UserConfigTestCase(unittest.TestCase):
 
 
 class UserLogTestCase(unittest.TestCase):
-    TEST_LOG_DIR = 'testdir'
-
     @mock.patch('logging.config.dictConfig')
     def test_log_dir(self, mock_dict_config):
-        config.load(log_dir=UserLogTestCase.TEST_LOG_DIR)
+        config.load(log_dir=TEST_LOG_DIR)
 
         self.assertTrue(mock_dict_config.called)
 
         logging_config = mock_dict_config.call_args[0][0]
 
-        self.assert_(logging_config['handlers']['info_file']['filename'].startswith(UserLogTestCase.TEST_LOG_DIR))
-        self.assert_(logging_config['handlers']['error_file']['filename'].startswith(UserLogTestCase.TEST_LOG_DIR))
+        self.assert_(logging_config['handlers']['info_file']['filename'].startswith(TEST_LOG_DIR))
+        self.assert_(logging_config['handlers']['error_file']['filename'].startswith(TEST_LOG_DIR))
+
 
 class MergeTestCase(unittest.TestCase):
     def test_merge(self):

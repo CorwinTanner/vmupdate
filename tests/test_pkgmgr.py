@@ -2,13 +2,13 @@ import unittest
 
 import mock
 
-from vmupdate.channel import ChannelCommand
 from vmupdate.config import config
-from vmupdate.pkgmgr import get_pkgmgrs, run_pkgmgr, run_pkgmgr_cmd
-from vmupdate.shells.posix import Posix
+from vmupdate.pkgmgr import get_pkgmgrs, run_pkgmgr
 from vmupdate.vm import VM
 
+from tests.constants import *
 from tests.context import get_data_path
+from tests.mocks import get_mock_virtualizer, get_mock_ssh_client
 
 
 class PkgMgrTestCase(unittest.TestCase):
@@ -17,44 +17,32 @@ class PkgMgrTestCase(unittest.TestCase):
         config.load(get_data_path('testconfig.yaml'))
 
     def setUp(self):
-        self.mock_vm = mock.MagicMock(spec=VM)
+        patch_ssh = mock.patch('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
 
-        self.mock_vm.uid = 'Test Machine 1'
-        self.mock_vm.get_os.return_value = 'Ubuntu'
+        self.addCleanup(patch_ssh.stop)
 
-        self.mock_shell = mock.MagicMock(spec=Posix)
-        self.mock_shell.command_exists.return_value = True
-
-        self.mock_vm.connect.return_value = self.mock_shell
+        self.mock_ssh = patch_ssh.start()
+        self.mock_virt = get_mock_virtualizer()
 
     def test_get_pkgmgrs(self):
-        pkgmgrs = get_pkgmgrs(self.mock_vm)
+        vm = VM(self.mock_virt, 'Test Machine 1')
 
-        self.assertEqual(len(pkgmgrs), 1)
-        self.assertEqual(pkgmgrs[0][0], 'apt-get')
+        pkgmgrs = get_pkgmgrs(vm)
 
-    @mock.patch('vmupdate.pkgmgr.run_pkgmgr_cmd', autospec=True)
-    def test_run_pkgmgr(self, mock_run_pkgmgr_cmd):
-        mock_cmd = mock.MagicMock(spec=ChannelCommand)
-        mock_cmd.wait.return_value = 0
+        self.assertEqual(pkgmgrs, [('testpkgmgr', ['update', 'upgrade'])])
 
-        mock_run_pkgmgr_cmd.return_value = mock_cmd
+    def test_run_pkgmgr(self):
+        vm = VM(self.mock_virt, 'Test Machine 2')
 
-        run_pkgmgr(self.mock_vm, 'apt-get', ['update', 'upgrade'])
+        run_pkgmgr(vm, TEST_PKGMGR, config.pkgmgrs[TEST_OS][TEST_PKGMGR])
 
-        mock_run_pkgmgr_cmd.assert_any_call(mock.ANY, mock.ANY, 'apt-get', 'update')
-        mock_run_pkgmgr_cmd.assert_any_call(mock.ANY, mock.ANY, 'apt-get', 'upgrade')
+        self.mock_ssh.return_value.exec_command.assert_has_calls([mock.call('testpkgmgr update'),
+                                                             mock.call('testpkgmgr upgrade')])
 
-    def test_run_pkgmgr_cmd(self):
-        self.mock_vm.uid = 'Test Machine 2'
+    def test_run_pkgmgr_as_elevated(self):
+        vm = VM(self.mock_virt, 'Test Machine 1')
 
-        run_pkgmgr_cmd(self.mock_vm, self.mock_shell, 'apt-get', 'update')
+        run_pkgmgr(vm, TEST_PKGMGR, config.pkgmgrs[TEST_OS][TEST_PKGMGR])
 
-        self.mock_shell.run.assert_called_once_with('apt-get update')
-
-    def test_run_pkgmgr_cmd_as_elevated(self):
-        self.mock_vm.uid = 'Test Machine 1'
-
-        run_pkgmgr_cmd(self.mock_vm, self.mock_shell, 'apt-get', 'update')
-
-        self.mock_shell.run_as_elevated.assert_called_once_with('apt-get update', 'testpass1')
+        self.mock_ssh.return_value.exec_command.assert_has_calls([mock.call('sudo -S testpkgmgr update'),
+                                                             mock.call('sudo -S testpkgmgr upgrade')])
