@@ -32,7 +32,7 @@ class PkgMgrTestCase(unittest.TestCase):
         self.assertEqual(pkgmgrs, [('testpkgmgr', ['update', 'upgrade'])])
 
     def test_run_pkgmgr(self):
-        vm = VM(self.mock_virt, 'Test Machine 2')
+        vm = VM(self.mock_virt, 'Test Machine 4')
 
         run_pkgmgr(vm, TEST_PKGMGR, config.pkgmgrs[TEST_OS][TEST_PKGMGR])
 
