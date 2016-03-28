@@ -1,3 +1,7 @@
+"""
+    Provide methods for accessing credential information from the config and keyring.
+"""
+
 import keyring
 
 from .config import config

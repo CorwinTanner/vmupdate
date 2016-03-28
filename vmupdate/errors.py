@@ -1,3 +1,7 @@
+"""
+    Provide application-specific error classes.
+"""
+
 class AppError(Exception):
     pass
 

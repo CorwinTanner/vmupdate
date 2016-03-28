@@ -1,3 +1,7 @@
+"""
+    Provide methods to query and command package managers.
+"""
+
 import logging
 
 from .config import config

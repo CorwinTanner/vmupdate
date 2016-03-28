@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper class around VM interactions.
+"""
+
 from .channel import Channel
 from .config import config
 from .credentials import get_credentials

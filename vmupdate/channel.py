@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper classes around SSH.
+"""
+
 import logging
 from subprocess import list2cmdline
 

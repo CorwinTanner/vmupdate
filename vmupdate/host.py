@@ -1,3 +1,7 @@
+"""
+    Provide methods to find and update VM's.
+"""
+
 import logging
 import os
 import platform

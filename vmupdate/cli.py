@@ -1,3 +1,7 @@
+"""
+    Provide the main entry point and command line parsing.
+"""
+
 import argparse
 import logging
 import sys
