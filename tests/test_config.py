@@ -1,15 +1,14 @@
-import unittest
-
 import mock
 
 from vmupdate.config import config
 from vmupdate.config.config import merge
 
+from tests.case import TestCase
 from tests.constants import *
 from tests.context import get_data_path
 
 
-class ConfigTestCase(unittest.TestCase):
+class ConfigTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         config.load()
@@ -34,7 +33,7 @@ class ConfigTestCase(unittest.TestCase):
         self.assertNotIn('Test Machine 2', config.machines)
 
 
-class UserConfigTestCase(unittest.TestCase):
+class UserConfigTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         config.load(config_path=get_data_path('testconfig.yaml'))
@@ -86,7 +85,7 @@ class UserConfigTestCase(unittest.TestCase):
         self.assertIsNotNone(iter(config.machines))
 
 
-class UserLogTestCase(unittest.TestCase):
+class UserLogTestCase(TestCase):
     @mock.patch('logging.config.dictConfig')
     def test_log_dir(self, mock_dict_config):
         config.load(log_dir=TEST_LOG_DIR)
@@ -99,7 +98,7 @@ class UserLogTestCase(unittest.TestCase):
         self.assert_(logging_config['handlers']['error_file']['filename'].startswith(TEST_LOG_DIR))
 
 
-class MergeTestCase(unittest.TestCase):
+class MergeTestCase(TestCase):
     def test_merge(self):
         a = {
             'key1': 'value1',

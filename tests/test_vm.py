@@ -1,5 +1,3 @@
-import unittest
-
 import mock
 
 from vmupdate.config import config
@@ -7,12 +5,13 @@ from vmupdate.errors import SshError
 from vmupdate.shells.posix import Posix
 from vmupdate.vm import VM
 
+from tests.case import TestCase
 from tests.constants import *
 from tests.context import get_data_path
 from tests.mocks import get_mock_virtualizer
 
 
-class VMTestCase(unittest.TestCase):
+class VMTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         config.load(config_path=get_data_path('testconfig.yaml'))

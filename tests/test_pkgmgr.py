@@ -1,5 +1,3 @@
-import unittest
-
 import mock
 
 from vmupdate.config import config
@@ -7,22 +5,19 @@ from vmupdate.errors import UpdateError
 from vmupdate.pkgmgr import get_pkgmgrs, run_pkgmgr
 from vmupdate.vm import VM
 
+from tests.case import TestCase
 from tests.constants import *
 from tests.context import get_data_path
 from tests.mocks import get_mock_virtualizer, get_mock_ssh_client
 
 
-class PkgMgrTestCase(unittest.TestCase):
+class PkgMgrTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         config.load(get_data_path('testconfig.yaml'))
 
     def setUp(self):
-        patch_ssh = mock.patch('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
-
-        self.addCleanup(patch_ssh.stop)
-
-        self.mock_ssh = patch_ssh.start()
+        self.mock_ssh = self.add_mock('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
         self.mock_virt = get_mock_virtualizer()
 
     def test_get_pkgmgrs(self):

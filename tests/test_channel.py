@@ -1,20 +1,13 @@
-import unittest
-
-import mock
-
 from vmupdate.channel import Channel
 
+from tests.case import TestCase
 from tests.constants import *
 from tests.mocks import get_mock_ssh_client
 
 
-class ChannelTestCase(unittest.TestCase):
+class ChannelTestCase(TestCase):
     def setUp(self):
-        patch_ssh = mock.patch('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
-
-        self.addCleanup(patch_ssh.stop)
-
-        self.mock_ssh = patch_ssh.start()
+        self.mock_ssh = self.add_mock('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
 
         self.channel = Channel(TEST_HOST, TEST_HOST_PORT)
 

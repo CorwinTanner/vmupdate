@@ -1,11 +1,11 @@
-import unittest
-
 import mock
 
 from vmupdate.cli import main, parse_args, unhandled_exception_handler
 
+from tests.case import TestCase
 
-class CliTestCase(unittest.TestCase):
+
+class CliTestCase(TestCase):
     @mock.patch('vmupdate.cli.update_all_vms', autospec=True)
     @mock.patch('vmupdate.cli.parse_args', autospec=True)
     def test_main(self, mock_parse_args, mock_update_all_vms):

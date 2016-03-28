@@ -1,25 +1,18 @@
-import unittest
-
-import mock
-
 from vmupdate.config import config
 from vmupdate.credentials import get_credentials, get_run_as_elevated
 
+from tests.case import TestCase
 from tests.constants import *
 from tests.context import get_data_path
 from tests.mocks import keyring_get_password
 
 
-class CredentialsTestCase(unittest.TestCase):
+class CredentialsTestCase(TestCase):
     def setUp(self):
         config.load(get_data_path('testconfig.yaml'))
 
-        patch_get_password = mock.patch('keyring.get_password', autospec=True)
-
-        self.addCleanup(patch_get_password.stop)
-
-        self.mock_patch_get_password = patch_get_password.start()
-        self.mock_patch_get_password.side_effect = keyring_get_password
+        self.mock_patch_get_password = self.add_mock('keyring.get_password', autospec=True,
+                                                     side_effect=keyring_get_password)
 
     def test_default_password(self):
         user, password = get_credentials('Test Machine 4')
