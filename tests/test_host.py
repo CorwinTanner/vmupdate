@@ -17,16 +17,13 @@ class HostTestCase(TestCase):
 
     def setUp(self):
         self.mock_ssh = self.add_mock('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
-        self.mock_get_virtualizer = self.add_mock('vmupdate.host.get_virtualizer', autospec=True)
-        self.mock_isfile = self.add_mock('os.path.isfile', autospec=True)
-        self.mock_system = self.add_mock('platform.system', autospec=True)
+        self.mock_get_virtualizer = self.add_mock('vmupdate.host.get_virtualizer', autospec=True,
+                                                  return_value=get_mock_virtualizer())
+        self.mock_isfile = self.add_mock('os.path.isfile', autospec=True, return_value=True)
+        self.mock_system = self.add_mock('platform.system', autospec=True, return_value=TEST_OS)
         self.mock_sleep = self.add_mock('time.sleep', autospec=True)
 
     def test_update_all_vms(self):
-        self.mock_system.return_value = TEST_OS
-        self.mock_isfile.return_value = True
-        self.mock_get_virtualizer.return_value = get_mock_virtualizer()
-
         exitcode = update_all_vms()
 
         self.assertEqual(exitcode, 0)
@@ -36,10 +33,7 @@ class HostTestCase(TestCase):
         self.mock_ssh.return_value.exec_command.assert_any_call('testpkgmgr update')
         self.mock_ssh.return_value.exec_command.assert_any_call('testpkgmgr upgrade')
 
-    def test_update_all_vms_start(self):
-        self.mock_system.return_value = TEST_OS
-        self.mock_isfile.return_value = True
-        self.mock_get_virtualizer.return_value = get_mock_virtualizer()
+    def test_update_all_vms_start_vms(self):
         self.mock_get_virtualizer.return_value.get_vm_status.return_value = VM_STOPPED
 
         exitcode = update_all_vms()
