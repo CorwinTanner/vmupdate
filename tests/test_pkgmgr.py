@@ -3,6 +3,7 @@ import unittest
 import mock
 
 from vmupdate.config import config
+from vmupdate.errors import UpdateError
 from vmupdate.pkgmgr import get_pkgmgrs, run_pkgmgr
 from vmupdate.vm import VM
 
@@ -46,3 +47,12 @@ class PkgMgrTestCase(unittest.TestCase):
 
         self.mock_ssh.return_value.exec_command.assert_has_calls([mock.call('sudo -S testpkgmgr update'),
                                                              mock.call('sudo -S testpkgmgr upgrade')])
+
+    def test_run_pkgmgr_error(self):
+        mock_stdout = self.mock_ssh.return_value.exec_command.return_value[1]
+
+        mock_stdout.channel.recv_exit_status.return_value = -1
+
+        vm = VM(self.mock_virt, 'Test Machine 4')
+
+        self.assertRaises(UpdateError, run_pkgmgr, vm, TEST_PKGMGR, config.pkgmgrs[TEST_OS][TEST_PKGMGR])
