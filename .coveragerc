@@ -1,0 +1,8 @@
+[run]
+source = vmupdate
+
+[report]
+exclude_lines =
+    pragma: no cover
+    pass
+    if __name__ == .__main__.:

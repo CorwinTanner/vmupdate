@@ -1,101 +1,71 @@
-import unittest
-
 import mock
 
 from vmupdate.config import config
-from vmupdate.host import update_all_vms, get_all_vms, find_virtualizers, get_available_ports
-from vmupdate.vm import VM
-from vmupdate.virtualizers import VM_STOPPED
-from vmupdate.virtualizers.virtualizer import Virtualizer
+from vmupdate.host import update_all_vms, find_virtualizers
+from vmupdate.virtualizers import VM_STOPPED, VM_RUNNING
 
+from tests.case import TestCase
+from tests.constants import *
 from tests.context import get_data_path
+from tests.mocks import get_mock_virtualizer, get_mock_ssh_client
 
 
-class HostTestCase(unittest.TestCase):
+class HostTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         config.load(get_data_path('testconfig.yaml'))
 
-    @mock.patch('time.sleep', autospec=True)
-    @mock.patch('vmupdate.host.run_pkgmgr', autospec=True)
-    @mock.patch('vmupdate.host.get_pkgmgrs', autospec=True)
-    @mock.patch('vmupdate.host.get_available_ports', autospec=True)
-    @mock.patch('vmupdate.host.get_all_vms', autospec=True)
-    def test_update_all_vms(self, mock_get_all_vms, mock_get_available_ports, mock_get_pkgmgrs, mock_run_pkgmgr, mock_sleep):
-        pkgmgr = 'apt-get'
-        pkgmgr_cmds = ['update', 'upgrade']
-        test_ports = [1, 2, 3]
+    def setUp(self):
+        self.mock_ssh = self.add_mock('vmupdate.channel.SSHClient', new_callable=get_mock_ssh_client)
+        self.mock_get_virtualizer = self.add_mock('vmupdate.host.get_virtualizer', autospec=True,
+                                                  return_value=get_mock_virtualizer())
+        self.mock_isfile = self.add_mock('os.path.isfile', autospec=True, return_value=True)
+        self.mock_system = self.add_mock('platform.system', autospec=True, return_value=TEST_OS)
+        self.mock_sleep = self.add_mock('time.sleep', autospec=True)
 
-        mock_vm = mock.MagicMock(spec=VM)
-        mock_vm.uid = 'testvm'
-        mock_vm.get_status.return_value = VM_STOPPED
-        mock_vm.get_ssh_info.return_value = (None, None)
+    def test_update_all_vms(self):
+        exitcode = update_all_vms()
 
-        mock_get_all_vms.return_value = [mock_vm]
+        self.assertEqual(exitcode, 0)
 
-        mock_get_available_ports.return_value = test_ports
+        self.mock_ssh.return_value.exec_command.assert_any_call('sudo -S testpkgmgr update')
+        self.mock_ssh.return_value.exec_command.assert_any_call('sudo -S testpkgmgr upgrade')
+        self.mock_ssh.return_value.exec_command.assert_any_call('testpkgmgr update')
+        self.mock_ssh.return_value.exec_command.assert_any_call('testpkgmgr upgrade')
 
-        mock_get_pkgmgrs.return_value = [(pkgmgr, pkgmgr_cmds)]
+    def test_update_all_vms_start_vms(self):
+        self.mock_get_virtualizer.return_value.get_vm_status.return_value = VM_STOPPED
 
-        update_all_vms()
+        exitcode = update_all_vms()
 
-        mock_vm.start.assert_called_once_with()
-        mock_vm.stop.assert_called_once_with()
-        mock_vm.get_ssh_info.assert_called_once_with()
-        mock_vm.enable_ssh.assert_called_once_with(test_ports[0])
+        self.assertEqual(exitcode, 0)
 
-        mock_sleep.assert_has_calls([mock.call(config.general.wait_after_start),
-                                     mock.call(config.general.wait_before_stop)])
+        self.mock_get_virtualizer.return_value.start_vm.assert_any_call(TEST_UID)
+        self.mock_get_virtualizer.return_value.stop_vm.assert_any_call(TEST_UID)
 
-        mock_get_pkgmgrs.assert_called_once_with(mock_vm)
+    def test_update_all_vms_enable_ssh(self):
+        self.mock_get_virtualizer.return_value.get_vm_status.return_value = VM_STOPPED
+        self.mock_get_virtualizer.return_value.get_ssh_info.return_value = (None, None)
 
-        mock_run_pkgmgr.assert_called_once_with(mock_vm, pkgmgr, pkgmgr_cmds)
+        exitcode = update_all_vms()
 
-    @mock.patch('vmupdate.host.get_virtualizer', autospec=True)
-    @mock.patch('vmupdate.host.find_virtualizers', autospec=True)
-    def test_get_all_vms(self, mock_find_virtualizers, mock_get_virtualizer):
-        test_virt_name = 'testvirt'
-        test_virt_path = '/test/path'
-        test_vm_name = 'testvm'
-        test_vm_uuid = 'testuuid'
+        self.assertEqual(exitcode, 0)
 
-        mock_find_virtualizers.return_value = {test_virt_name: test_virt_path}
+        self.mock_get_virtualizer.return_value.enable_ssh.assert_any_call(TEST_UID, TEST_HOST_PORT, TEST_GUEST_PORT)
 
-        mock_virt = mock.MagicMock(spec=Virtualizer)
+    def test_update_all_vms_cannot_enable_ssh(self):
+        self.mock_get_virtualizer.return_value.get_vm_status.return_value = VM_RUNNING
+        self.mock_get_virtualizer.return_value.get_ssh_info.return_value = (None, None)
 
-        mock_virt.list_vms.return_value = [(test_vm_name, test_vm_uuid)]
+        exitcode = update_all_vms()
 
-        mock_get_virtualizer.return_value = mock_virt
+        self.assertEqual(exitcode, 0)
 
-        vms = get_all_vms()
+        self.assertFalse(self.mock_get_virtualizer.return_value.enable_ssh.called)
 
-        mock_get_virtualizer.assert_called_once_with(test_virt_name, test_virt_path)
+    def test_find_virtualizers_error(self):
+        self.mock_isfile.side_effect = IOError('File not found')
 
-        self.assertEqual(len(vms), 1)
-        self.assertEqual(vms[0].uid, test_vm_name)
+        virtualizers = find_virtualizers()
 
-    @mock.patch('os.path.isfile', autospec=True)
-    @mock.patch('platform.system', autospec=True)
-    def test_find_virtualizers(self, mock_system, mock_isfile):
-        mock_system.return_value = 'Test OS'
-        mock_isfile.return_value = True
-
-        virts = find_virtualizers()
-
-        mock_isfile.assert_called_once_with('/test/path/virt')
-
-        self.assertEqual(virts['TestVirtualizer'], '/test/path/virt')
-
-    def test_get_available_ports(self):
-        test_host = 'testhost'
-        test_port = 50000
-
-        mock_vm = mock.MagicMock(spec=VM)
-
-        mock_vm.uid = 'testvm'
-        mock_vm.get_ssh_info.return_value = (test_host, test_port)
-
-        ports = get_available_ports([mock_vm])
-
-        self.assertEqual(len(ports), 15847)
-        self.assertNotIn(test_port, ports)
+        self.assertEqual(len(virtualizers), 0)

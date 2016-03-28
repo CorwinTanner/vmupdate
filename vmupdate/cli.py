@@ -10,18 +10,20 @@ from vmupdate.host import update_all_vms
 def main():
     sys.excepthook = unhandled_exception_handler
 
+    args = parse_args(sys.argv[1:])
+
+    config.load(args.config, args.logdir)
+
+    return update_all_vms()
+
+
+def parse_args(args):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-c', '--config', help='use specified config path')
     parser.add_argument('-l', '--logdir', help='directory for log files')
 
-    args = parser.parse_args()
-
-    config.load(args.config, args.logdir)
-
-    update_all_vms()
-
-    return 0
+    return parser.parse_args(args)
 
 
 def unhandled_exception_handler(type, value, tb):
