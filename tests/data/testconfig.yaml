@@ -33,7 +33,7 @@ Machines:
     Run As Elevated: true
   Test Machine 2:
     Username: testuser2
-    Shell: Posix
+    Shell: TestShell
   Test Machine 3:
     Username: testuser3
   Test Machine 4:

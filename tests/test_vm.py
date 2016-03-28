@@ -75,3 +75,8 @@ class VMTestCase(unittest.TestCase):
         os = self.mock_virt.get_vm_os()
 
         self.assertEqual(self.vm.get_shell_name(), config.shells[os])
+
+    def test_get_shell_name_by_machine(self):
+        self.vm.uid = 'Test Machine 2'
+
+        self.assertEqual(self.vm.get_shell_name(), 'TestShell')
