@@ -3,6 +3,7 @@ import unittest
 import mock
 
 from vmupdate.config import config
+from vmupdate.errors import SshError
 from vmupdate.shells.posix import Posix
 from vmupdate.vm import VM
 
@@ -64,6 +65,11 @@ class VMTestCase(unittest.TestCase):
         mock_channel.assert_called_once_with(TEST_HOST, TEST_HOST_PORT)
         mock_channel.return_value.connect.assert_called_once_with(TEST_USER, TEST_PASS)
         self.assertIsInstance(shell, Posix)
+
+    def test_connect_ssh_error(self):
+        self.mock_virt.get_ssh_info.return_value = (None, None)
+
+        self.assertRaises(SshError, self.vm.connect)
 
     def test_get_shell_name(self):
         os = self.mock_virt.get_vm_os()
