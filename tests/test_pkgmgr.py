@@ -48,7 +48,7 @@ class PkgMgrTestCase(unittest.TestCase):
         self.mock_ssh.return_value.exec_command.assert_has_calls([mock.call('sudo -S testpkgmgr update'),
                                                              mock.call('sudo -S testpkgmgr upgrade')])
 
-    def test_run_pkgmgr_error(self):
+    def test_run_pkgmgr_update_error(self):
         mock_stdout = self.mock_ssh.return_value.exec_command.return_value[1]
 
         mock_stdout.channel.recv_exit_status.return_value = -1
