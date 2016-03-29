@@ -1,3 +1,7 @@
+"""
+    Provide an abstract base class for shells.
+"""
+
 from abc import ABCMeta, abstractmethod
 
 

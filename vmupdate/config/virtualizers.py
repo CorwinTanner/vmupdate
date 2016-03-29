@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper around the virtualizers configuration section.
+"""
+
 from .configsection import ConfigSection
 
 

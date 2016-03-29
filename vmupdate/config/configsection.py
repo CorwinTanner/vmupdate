@@ -1,3 +1,7 @@
+"""
+    Provide a base class for configuration sections.
+"""
+
 class ConfigSection(object):
     def __init__(self, data=None):
         self._data = data or {}

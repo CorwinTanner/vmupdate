@@ -1,3 +1,7 @@
+"""
+    Implement a basic POSIX shell.
+"""
+
 import shlex
 
 from .shell import Shell

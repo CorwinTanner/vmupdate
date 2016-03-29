@@ -1,3 +1,7 @@
+"""
+    Provide an abstract base class for virtualizers.
+"""
+
 from abc import ABCMeta, abstractmethod
 
 

@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper around the shells configuration section.
+"""
+
 from .configsection import ConfigSection
 
 

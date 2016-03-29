@@ -1,3 +1,7 @@
+"""
+    Provide a method for instantiating shells by name.
+"""
+
 import sys
 
 from .posix import Posix
