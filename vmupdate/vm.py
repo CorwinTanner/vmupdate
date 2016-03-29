@@ -9,7 +9,7 @@ from .errors import SshError
 from .shells import get_shell
 
 
-class VM:
+class VM(object):
     def __init__(self, virtualizer, uid):
         self.virtualizer = virtualizer
         self.uid = uid

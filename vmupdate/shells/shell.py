@@ -5,7 +5,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class Shell:
+class Shell(object):
     __metaclass__ = ABCMeta
 
     def __enter__(self):
