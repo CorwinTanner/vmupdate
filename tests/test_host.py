@@ -1,7 +1,7 @@
 import mock
 
 from vmupdate.config import config
-from vmupdate.host import update_all_vms, find_virtualizers
+from vmupdate.host import update_all_vms, _find_virtualizers
 from vmupdate.virtualizers import VM_STOPPED, VM_RUNNING
 
 from tests.case import TestCase
@@ -66,6 +66,6 @@ class HostTestCase(TestCase):
     def test_find_virtualizers_error(self):
         self.mock_isfile.side_effect = IOError('File not found')
 
-        virtualizers = find_virtualizers()
+        virtualizers = _find_virtualizers()
 
         self.assertEqual(len(virtualizers), 0)

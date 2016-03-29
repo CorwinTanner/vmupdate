@@ -1,5 +1,5 @@
 """
-    Provide methods to query and command package managers.
+    Provide functions to query and command package managers.
 """
 
 import logging
@@ -12,6 +12,16 @@ log = logging.getLogger(__name__)
 
 
 def get_pkgmgrs(vm):
+    """
+        Return all package managers on the virtual machine.
+
+        :param vm: virtual machine to target
+        :type vm: :class:`~.vm.VM`
+
+        :return: list of tuples of names and lists of paths
+        :rtype: list((str, list(str)))
+    """
+
     pkgmgrs = []
     vm_os = vm.get_os()
 
@@ -29,17 +39,43 @@ def get_pkgmgrs(vm):
 
 
 def run_pkgmgr(vm, pkgmgr, cmds):
+    """
+        Run the package manager commands on the virtual machine in sequence.
+
+        :param vm: virtual machine to target
+        :param str pkgmgr: name of the package manager to run
+        :param cmds: list of commands to run in sequence
+        :type vm: :class:`~.vm.VM`
+        :type cmds: list(str)
+
+        :raise UpdateError: if any command does not exit with ``0``
+    """
+
     log.info('Updating %s on %s', pkgmgr, vm.uid)
 
     with vm.connect() as shell:
         for cmd in cmds:
-            cmd = run_pkgmgr_cmd(vm, shell, pkgmgr, cmd)
+            cmd = _run_pkgmgr_cmd(vm, shell, pkgmgr, cmd)
 
             if cmd.wait() != 0:
                 raise UpdateError('Update failed')
 
 
-def run_pkgmgr_cmd(vm, shell, pkgmgr, cmd):
+def _run_pkgmgr_cmd(vm, shell, pkgmgr, cmd):
+    """
+        Run the package manager command on the virtual machine.
+
+        :param vm: virtual machine to target
+        :param shell: the shell to run the command against
+        :param str pkgmgr: name of the package manager to run
+        :param str cmd: command to run
+        :type vm: :class:`~.vm.VM`
+        :type shell: :class:`~.shells.shell.Shell`
+
+        :return: channel command
+        :rtype: :class:`~.channel.ChannelCommand`
+    """
+
     shell_cmd = ' '.join([pkgmgr, cmd])
 
     log.debug('Running %s on %s', shell_cmd, vm.uid)

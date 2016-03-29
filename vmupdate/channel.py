@@ -20,12 +20,12 @@ class Channel(object):
 
     def __init__(self, hostname, port):
         """
-            Return an instance of :class:`vmupdate.channel.Channel`.
+            Return an instance of :class:`Channel`.
 
             :param str hostname: name or IP of the virtual machine to connect to
             :param int port: port of the virtual machine to connect to
 
-            :rtype:`vmupdate.channel.Channel`
+            :rtype:`Channel`
         """
 
         self.hostname = hostname
@@ -35,9 +35,9 @@ class Channel(object):
 
     def __enter__(self):
         """
-            Return instance of :class:`vmupdate.channel.Channel`.
+            Return instance of :class:`Channel`.
 
-            :rtype:`vmupdate.channel.Channel`
+            :rtype:`Channel`
         """
 
         return self
@@ -60,14 +60,14 @@ class Channel(object):
 
     def run(self, args):
         """
-            Run command against the virtual machine and return a :class:`vmupdate.channel.ChannelCommand`.
+            Run command against the virtual machine and return a :class:`ChannelCommand`.
 
             .. warnings also:: :meth:`connect` must be called first.
 
             :param args: the command to be run
             :type args: str or list
 
-            :rtype: :class:`vmupdate.channel.ChannelCommand`
+            :rtype: :class:`ChannelCommand`
         """
 
         if isinstance(args, list):
@@ -97,13 +97,13 @@ class ChannelCommand(object):
 
     def __init__(self, stdin, stdout, stderr):
         """
-            Return an instance of :class:`vmupdate.channel.ChannelCommand`.
+            Return an instance of :class:`ChannelCommand`.
 
             :param pipe stdin: standard input
             :param pipe stdout: standard output
             :param pipe stderr: standard error
 
-            :rtype: :class:`vmupdate.channel.ChannelCommand`
+            :rtype: :class:`ChannelCommand`
         """
 
         self.stdin = stdin
