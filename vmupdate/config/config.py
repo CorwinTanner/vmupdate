@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper around configuration.
+"""
+
 import logging.config
 import os
 import pkgutil

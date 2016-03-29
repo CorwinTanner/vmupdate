@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper around the package managers configuration section.
+"""
+
 from .configsection import ConfigSection
 
 

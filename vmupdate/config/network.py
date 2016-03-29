@@ -1,3 +1,7 @@
+"""
+    Provide a wrapper around the network configuration section.
+"""
+
 from .configsection import ConfigSection
 
 

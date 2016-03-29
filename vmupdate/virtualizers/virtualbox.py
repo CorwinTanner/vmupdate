@@ -1,3 +1,7 @@
+"""
+    Wrap the VirtualBox command line.
+"""
+
 import logging
 import re
 import subprocess

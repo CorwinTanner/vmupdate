@@ -1,3 +1,7 @@
+"""
+    Provide a method for instantiating virtualizers by name.
+"""
+
 import sys
 
 from .virtualbox import VirtualBox

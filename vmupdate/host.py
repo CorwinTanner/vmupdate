@@ -1,10 +1,13 @@
+"""
+    Provide functions to find and update VM's.
+"""
+
 import logging
 import os
 import platform
 import time
 
 from .config import config
-from .errors import SshError
 from .pkgmgr import get_pkgmgrs, run_pkgmgr
 from .virtualizers import get_virtualizer, VM_STOPPED
 from .vm import VM
@@ -13,13 +16,20 @@ log = logging.getLogger(__name__)
 
 
 def update_all_vms():
+    """
+        Update all virtual machines on the system.
+
+        :return: exitcode
+        :rtype: int
+    """
+
     log.info('Starting update on all VMs')
 
-    vms = get_all_vms()
+    vms = _get_all_vms()
 
     log.info('Found %i VM(s) to update', len(vms))
 
-    available_ports = iter(get_available_ports(vms))
+    available_ports = iter(_get_available_ports(vms))
 
     for vm in vms:
         try:
@@ -59,10 +69,17 @@ def update_all_vms():
     return 0
 
 
-def get_all_vms():
+def _get_all_vms():
+    """
+        Return all virtual machines on the system.
+
+        :return: list of virtual machines
+        :rtype: list(:class:`~.vm.VM`)
+    """
+
     vms = []
 
-    virtualizers = find_virtualizers()
+    virtualizers = _find_virtualizers()
 
     for virt_name, virt_path in virtualizers.items():
         log.info('Querying virtualizer %s', virt_name)
@@ -77,7 +94,14 @@ def get_all_vms():
     return vms
 
 
-def find_virtualizers():
+def _find_virtualizers():
+    """
+        Return all virtualizers found on the system.
+
+        :return: dictionary of names and paths
+        :rtype: dict(str, str)
+    """
+
     log.info('Finding virtualizers')
 
     virtualizers = {}
@@ -97,8 +121,18 @@ def find_virtualizers():
     return virtualizers
 
 
-def get_available_ports(vms):
-    used_ports = get_used_ports(vms)
+def _get_available_ports(vms):
+    """
+        Return ports in the configured range not in use by the ``vms``.
+
+        :param vms: list of virtual machines
+        :type vms: list(:class:`~.vm.VM`)
+
+        :return: list of ports
+        :rtype: list(int)
+    """
+
+    used_ports = _get_used_ports(vms)
 
     min_port = config.network.ssh.host_min_port
     max_port = config.network.ssh.host_max_port
@@ -106,7 +140,17 @@ def get_available_ports(vms):
     return [p for p in xrange(min_port, max_port) if p not in used_ports]
 
 
-def get_used_ports(vms):
+def _get_used_ports(vms):
+    """
+        Return a set of ports in use by the ``vms``.
+
+        :param vms: list of virtual machines
+        :type vms: list(:class:`~.vm.VM`)
+
+        :return: set of ports
+        :rtype: set(int)
+    """
+
     used_ports = set()
 
     for vm in vms:
