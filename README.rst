@@ -1,4 +1,4 @@
-|build| |coverage|
+|build| |coverage| |license| |python| |status|
 
 ********
 vmupdate
@@ -140,8 +140,17 @@ If you get a PyCrypto build error during installation please see the `paramiko i
 <http://www.paramiko.org/installing.html#pycrypto>`_.
 
 
-.. |build| image:: https://travis-ci.org/CorwinTanner/vmupdate.svg?branch=master
+.. |build| image:: https://img.shields.io/travis/CorwinTanner/vmupdate.svg
     :target: https://travis-ci.org/CorwinTanner/vmupdate
 
-.. |coverage| image:: https://coveralls.io/repos/github/CorwinTanner/vmupdate/badge.svg?branch=master
-    :target: https://coveralls.io/github/CorwinTanner/vmupdate?branch=master
+.. |coverage| image:: https://img.shields.io/coveralls/CorwinTanner/vmupdate.svg
+    :target: https://coveralls.io/github/CorwinTanner/vmupdate
+
+.. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg
+    :target: https://github.com/CorwinTanner/vmupdate/blob/master/LICENSE
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/vmupdate.svg
+    :target: https://github.com/CorwinTanner/vmupdate
+
+.. |status| image:: https://img.shields.io/pypi/status/vmupdate.svg
+    :target: https://github.com/CorwinTanner/vmupdate
