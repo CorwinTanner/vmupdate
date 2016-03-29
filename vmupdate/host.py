@@ -8,7 +8,6 @@ import platform
 import time
 
 from .config import config
-from .errors import SshError
 from .pkgmgr import get_pkgmgrs, run_pkgmgr
 from .virtualizers import get_virtualizer, VM_STOPPED
 from .vm import VM
