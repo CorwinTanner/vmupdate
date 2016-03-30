@@ -24,7 +24,7 @@ class Credentials(ConfigSection):
     @property
     def username(self):
         """
-            Return the `username` configuration.
+            Return the `Username` configuration.
 
             :rtype: str
         """
@@ -34,7 +34,7 @@ class Credentials(ConfigSection):
     @property
     def password(self):
         """
-            Return the `password` configuration.
+            Return the `Password` configuration.
 
             :rtype: str
         """
@@ -44,7 +44,7 @@ class Credentials(ConfigSection):
     @property
     def use_keyring(self):
         """
-            Return the `use keyring` configuration.
+            Return the `Use Keyring` configuration.
 
             :rtype: bool
         """
@@ -54,7 +54,7 @@ class Credentials(ConfigSection):
     @property
     def run_as_elevated(self):
         """
-            Return the `run as elevated` configuration.
+            Return the `Run As Elevated` configuration.
 
             :rtype: bool
         """

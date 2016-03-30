@@ -26,7 +26,7 @@ class Config(ConfigSection):
     @property
     def general(self):
         """
-            Return the general configuration section.
+            Return the `General` configuration section.
 
             :rtype: :class:`~.general.General`
         """
@@ -36,7 +36,7 @@ class Config(ConfigSection):
     @property
     def credentials(self):
         """
-            Return the credentials configuration section.
+            Return the `Credentials` configuration section.
 
             :rtype: :class:`~.credentials.Credentials`
         """
@@ -46,7 +46,7 @@ class Config(ConfigSection):
     @property
     def network(self):
         """
-            Return the network configuration section.
+            Return the `Network` configuration section.
 
             :rtype: :class:`~.network.Network`
         """
@@ -56,7 +56,7 @@ class Config(ConfigSection):
     @property
     def virtualizers(self):
         """
-            Return the virtualizers configuration section.
+            Return the `Virtualizers` configuration section.
 
             :rtype: :class:`~.virtualizers.Virtualizers`
         """
@@ -66,7 +66,7 @@ class Config(ConfigSection):
     @property
     def pkgmgrs(self):
         """
-            Return the package managers configuration section.
+            Return the `Package Managers` configuration section.
 
             :rtype: :class:`~.pkgmgrs.PackageManagers`
         """
@@ -76,7 +76,7 @@ class Config(ConfigSection):
     @property
     def shells(self):
         """
-            Return the shells configuration section.
+            Return the `Shells` configuration section.
 
             :rtype: :class:`~.shells.Shells`
         """
@@ -86,7 +86,7 @@ class Config(ConfigSection):
     @property
     def machines(self):
         """
-            Return the machines configuration section.
+            Return the `Machines` configuration section.
 
             :rtype: :class:`~.machines.Machines`
         """

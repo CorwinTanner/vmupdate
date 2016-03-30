@@ -26,7 +26,7 @@ class Network(ConfigSection):
     @property
     def ssh(self):
         """
-            Return the `ssh` configuration section.
+            Return the `SSH` configuration section.
 
             :rtype: :class:`Ssh`
         """
@@ -35,7 +35,7 @@ class Network(ConfigSection):
 
 
 class Ssh(ConfigSection):
-    """Provide a wrapper around the ssh configuration section."""
+    """Provide a wrapper around the SSH configuration section."""
 
     def __init__(self, data):
         """
@@ -53,7 +53,7 @@ class Ssh(ConfigSection):
     @property
     def guest_port(self):
         """
-            Return the `guest port` configuration.
+            Return the guest port configuration.
 
             :rtype: int
         """

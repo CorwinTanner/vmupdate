@@ -24,7 +24,7 @@ class General(ConfigSection):
     @property
     def wait_after_start(self):
         """
-            Return the `wait after start` configuration.
+            Return the `Wait After Start` configuration.
 
             :rtype: int
         """
@@ -34,7 +34,7 @@ class General(ConfigSection):
     @property
     def wait_before_stop(self):
         """
-            Return the `wait before stop` configuration.
+            Return the `Wait Before Stop` configuration.
 
             :rtype: int
         """

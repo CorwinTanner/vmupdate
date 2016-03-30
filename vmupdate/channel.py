@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 class Channel(object):
     """
-        Abstract virtual machine communication.
+        Provide virtual machine communication.
 
         :ivar str hostname: name or IP of the virtual machine
         :ivar int port: port of the virtual machine
