@@ -1,46 +1,42 @@
-vmupdate.virtualizers package
-=============================
+vmupdate.virtualizers
+*********************
 
-Submodules
-----------
+.. automodule:: vmupdate.virtualizers
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-vmupdate.virtualizers.constants module
---------------------------------------
+Modules
+==========
+
+vmupdate.virtualizers.constants
+-------------------------------
 
 .. automodule:: vmupdate.virtualizers.constants
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.virtualizers.factory module
-------------------------------------
+vmupdate.virtualizers.factory
+-----------------------------
 
 .. automodule:: vmupdate.virtualizers.factory
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.virtualizers.virtualbox module
----------------------------------------
+vmupdate.virtualizers.virtualbox
+--------------------------------
 
 .. automodule:: vmupdate.virtualizers.virtualbox
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.virtualizers.virtualizer module
-----------------------------------------
+vmupdate.virtualizers.virtualizer
+---------------------------------
 
 .. automodule:: vmupdate.virtualizers.virtualizer
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: vmupdate.virtualizers
     :members:
     :undoc-members:
     :show-inheritance:

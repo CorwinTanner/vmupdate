@@ -1,15 +1,10 @@
-.. vmupdate documentation master file, created by
-   sphinx-quickstart on Tue Mar 29 14:43:16 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to vmupdate's documentation!
-====================================
+Welcome to vmupdate
+===================
 
 Contents:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 5
 
    vmupdate
 
@@ -20,4 +15,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

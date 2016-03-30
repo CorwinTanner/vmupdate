@@ -1,8 +1,13 @@
-vmupdate package
-================
+vmupdate
+********
 
-Subpackages
------------
+.. automodule:: vmupdate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Packages
+===========
 
 .. toctree::
 
@@ -10,70 +15,61 @@ Subpackages
     vmupdate.shells
     vmupdate.virtualizers
 
-Submodules
-----------
+Modules
+==========
 
-vmupdate.channel module
------------------------
+vmupdate.channel
+----------------
 
 .. automodule:: vmupdate.channel
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.cli module
--------------------
+vmupdate.cli
+------------
 
 .. automodule:: vmupdate.cli
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.credentials module
----------------------------
+vmupdate.credentials
+--------------------
 
 .. automodule:: vmupdate.credentials
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.errors module
-----------------------
+vmupdate.errors
+---------------
 
 .. automodule:: vmupdate.errors
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.host module
---------------------
+vmupdate.host
+-------------
 
 .. automodule:: vmupdate.host
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.pkgmgr module
-----------------------
+vmupdate.pkgmgr
+---------------
 
 .. automodule:: vmupdate.pkgmgr
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.vm module
-------------------
+vmupdate.vm
+-----------
 
 .. automodule:: vmupdate.vm
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: vmupdate
     :members:
     :undoc-members:
     :show-inheritance:

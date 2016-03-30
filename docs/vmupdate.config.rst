@@ -1,86 +1,82 @@
-vmupdate.config package
-=======================
+vmupdate.config
+***************
 
-Submodules
-----------
+.. automodule:: vmupdate.config
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-vmupdate.config.config module
------------------------------
+Modules
+==========
+
+vmupdate.config.config
+----------------------
 
 .. automodule:: vmupdate.config.config
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.configsection module
-------------------------------------
+vmupdate.config.configsection
+-----------------------------
 
 .. automodule:: vmupdate.config.configsection
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.credentials module
-----------------------------------
+vmupdate.config.credentials
+---------------------------
 
 .. automodule:: vmupdate.config.credentials
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.general module
-------------------------------
+vmupdate.config.general
+-----------------------
 
 .. automodule:: vmupdate.config.general
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.machines module
--------------------------------
+vmupdate.config.machines
+------------------------
 
 .. automodule:: vmupdate.config.machines
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.network module
-------------------------------
+vmupdate.config.network
+-----------------------
 
 .. automodule:: vmupdate.config.network
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.pkgmgrs module
-------------------------------
+vmupdate.config.pkgmgrs
+-----------------------
 
 .. automodule:: vmupdate.config.pkgmgrs
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.shells module
------------------------------
+vmupdate.config.shells
+----------------------
 
 .. automodule:: vmupdate.config.shells
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.config.virtualizers module
------------------------------------
+vmupdate.config.virtualizers
+----------------------------
 
 .. automodule:: vmupdate.config.virtualizers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: vmupdate.config
     :members:
     :undoc-members:
     :show-inheritance:

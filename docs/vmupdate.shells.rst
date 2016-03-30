@@ -1,38 +1,34 @@
-vmupdate.shells package
-=======================
+vmupdate.shells
+***************
 
-Submodules
-----------
+.. automodule:: vmupdate.shells
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-vmupdate.shells.factory module
-------------------------------
+Modules
+==========
+
+vmupdate.shells.factory
+-----------------------
 
 .. automodule:: vmupdate.shells.factory
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.shells.posix module
-----------------------------
+vmupdate.shells.posix
+---------------------
 
 .. automodule:: vmupdate.shells.posix
     :members:
     :undoc-members:
     :show-inheritance:
 
-vmupdate.shells.shell module
-----------------------------
+vmupdate.shells.shell
+---------------------
 
 .. automodule:: vmupdate.shells.shell
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: vmupdate.shells
     :members:
     :undoc-members:
     :show-inheritance:
