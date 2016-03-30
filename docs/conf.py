@@ -51,8 +51,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'vmupdate'
-copyright = u'2016, Author'
-author = u'Author'
+copyright = u'2016, Corwin Tanner'
+author = u'Corwin Tanner'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
