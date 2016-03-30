@@ -1,7 +1,7 @@
 import mock
 
 from vmupdate.config import config
-from vmupdate.config.config import merge
+from vmupdate.config.config import _merge
 
 from tests.case import TestCase
 from tests.constants import *
@@ -127,7 +127,7 @@ class MergeTestCase(TestCase):
             },
         }
 
-        merged = merge(a, b)
+        merged = _merge(a, b)
 
         self.assertEqual(merged['key1'], 'value1')
         self.assertEqual(merged['key2'], 'newvalue1')
