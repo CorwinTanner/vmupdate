@@ -33,7 +33,6 @@ import sphinx_rtd_theme
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
 
