@@ -43,9 +43,9 @@ And pass that file to the utility:
 
     $ vmupdate --config "/path/to/config/vmupdate.yaml"
 
-.. note:: This method is included for simplicity, but is not recommended due to the inherent insecurity of a plaintext
-    password. Read the `Configuration <http://vmupdate.readthedocs.org/configuration.html>`_ documentation for more
-    options.
+**Note:** This method is included for simplicity, but is not recommended due to the inherent insecurity of a plaintext
+password. Read the `Configuration <http://vmupdate.readthedocs.org/en/stable/configuration.html>`_ documentation for
+more options.
 
 ********
 Features
