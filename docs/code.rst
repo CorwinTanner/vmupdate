@@ -29,9 +29,9 @@ vmupdate.config
     :undoc-members:
     :show-inheritance:
 
-================
+==================
 vmupdate.constants
-================
+==================
 
 .. automodule:: vmupdate.constants
     :members:
