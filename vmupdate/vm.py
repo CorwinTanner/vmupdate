@@ -15,7 +15,7 @@ class VM(object):
 
         :ivar virtualizer: virtualizer that the virtual machine runs under
         :ivar str uid: identifier of the virtual machine
-        :vartype virtualizer: :class:`~.virtualizers.virtualizer.Virtualizer`
+        :vartype virtualizer: :class:`~.virtualizers.Virtualizer`
     """
 
     def __init__(self, virtualizer, uid):
@@ -24,7 +24,7 @@ class VM(object):
 
             :param virtualizer: virtualizer that the virtual machine runs under
             :param str uid: identifier of the virtual machine
-            :type virtualizer: :class:`~.virtualizers.virtualizer.Virtualizer`
+            :type virtualizer: :class:`~.virtualizers.Virtualizer`
 
             :rtype:`VM`
         """
@@ -79,7 +79,7 @@ class VM(object):
         """
             Return the status of the virtual machine.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :rtype: str
         """
@@ -90,7 +90,7 @@ class VM(object):
         """
             Return the operating system of the virtual machine.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :rtype: str
         """
@@ -123,7 +123,7 @@ class VM(object):
         """
             Connect to the virtual machine and return a shell.
 
-            :rtype: :class:`~.shells.shell.Shell`
+            :rtype: :class:`~.shells.Shell`
         """
 
         ip, port = self.get_ssh_info()

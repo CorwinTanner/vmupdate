@@ -11,11 +11,11 @@ def get_shell(name, channel):
     """
         Return an instance of a shell.
 
-        The shell should extend :class:`~.shell.Shell`.
+        The shell should extend :class:`~.Shell`.
 
         :param str name: name of the shell class to instantiate
         :param channel: channel instance to pass to the constructor
-        :type channel: :class:`~vmupdate.channel.Channel`
+        :type channel: :class:`~.channel.Channel`
     """
 
     shell_class = getattr(sys.modules[__name__], name)
@@ -30,7 +30,7 @@ class Shell(object):
         This class must be inherited and cannot be used directly.
 
         :ivar channel: channel used for virtual machine communication
-        :vartype channel: :class:`~vmupdate.channel.Channel`
+        :vartype channel: :class:`~.channel.Channel`
     """
 
     __metaclass__ = ABCMeta
@@ -56,7 +56,7 @@ class Shell(object):
             :param args: the command to be run
             :type args: str or list
 
-            :rtype: :class:`~vmupdate.channel.ChannelCommand`
+            :rtype: :class:`~.channel.ChannelCommand`
         """
 
         return self.channel.run(args)
@@ -92,7 +92,7 @@ class Shell(object):
             :param str password: password to be used for elevated authentication
             :type args: str or list
 
-            :rtype: :class:`~vmupdate.channel.ChannelCommand`
+            :rtype: :class:`~.channel.ChannelCommand`
         """
 
         pass
@@ -103,7 +103,7 @@ class Posix(Shell):
         Represent a POSIX shell that communicates through a channel.
 
         :ivar channel: channel used for virtual machine communication
-        :vartype channel: :class:`~vmupdate.channel.Channel`
+        :vartype channel: :class:`~.channel.Channel`
     """
 
     def __init__(self, channel):
@@ -111,7 +111,7 @@ class Posix(Shell):
             Return an instance of :class:`Posix`.
 
             :param channel: channel used for virtual machine communication
-            :type channel: :class:`~vmupdate.channel.Channel`
+            :type channel: :class:`~.channel.Channel`
 
             :rtype:`Posix`
         """
@@ -139,7 +139,7 @@ class Posix(Shell):
             :param str password: password to be used for elevated authentication
             :type args: str or list
 
-            :rtype: :class:`~vmupdate.channel.ChannelCommand`
+            :rtype: :class:`~.channel.ChannelCommand`
         """
 
         if isinstance(args, basestring):

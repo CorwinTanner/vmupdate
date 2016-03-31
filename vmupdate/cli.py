@@ -15,7 +15,7 @@ def main():
     """
         Initialize environment and call :func:`.host.update_all_vms`.
 
-        This is the main entry point for `vmupdate`.
+        This is the main entry point for vmupdate.
 
         :return: exitcode
         :rtype: int

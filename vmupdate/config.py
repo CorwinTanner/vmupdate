@@ -92,7 +92,7 @@ class Credentials(ConfigSection):
         """
             Return an instance of :class:`Credentials`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -104,7 +104,7 @@ class Credentials(ConfigSection):
     @property
     def username(self):
         """
-            Return the `Username` configuration.
+            Return the *Username* configuration.
 
             :rtype: str
         """
@@ -114,7 +114,7 @@ class Credentials(ConfigSection):
     @property
     def password(self):
         """
-            Return the `Password` configuration.
+            Return the *Password* configuration.
 
             :rtype: str
         """
@@ -124,7 +124,7 @@ class Credentials(ConfigSection):
     @property
     def use_keyring(self):
         """
-            Return the `Use Keyring` configuration.
+            Return the *Use Keyring* configuration.
 
             :rtype: bool
         """
@@ -134,7 +134,7 @@ class Credentials(ConfigSection):
     @property
     def run_as_elevated(self):
         """
-            Return the `Run As Elevated` configuration.
+            Return the *Run As Elevated* configuration.
 
             :rtype: bool
         """
@@ -149,7 +149,7 @@ class General(ConfigSection):
         """
             Return an instance of :class:`General`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -161,7 +161,7 @@ class General(ConfigSection):
     @property
     def wait_after_start(self):
         """
-            Return the `Wait After Start` configuration.
+            Return the *Wait After Start* configuration.
 
             :rtype: int
         """
@@ -171,7 +171,7 @@ class General(ConfigSection):
     @property
     def wait_before_stop(self):
         """
-            Return the `Wait Before Stop` configuration.
+            Return the *Wait Before Stop* configuration.
 
             :rtype: int
         """
@@ -190,7 +190,7 @@ class Machines(ConfigSection):
         """
             Return an instance of :class:`Machines`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -211,7 +211,7 @@ class Machine(ConfigSection):
         """
             Return an instance of :class:`Machine`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -223,7 +223,7 @@ class Machine(ConfigSection):
     @property
     def username(self):
         """
-            Return the `Username` configuration.
+            Return the *Username* configuration.
 
             :rtype: str
         """
@@ -233,7 +233,7 @@ class Machine(ConfigSection):
     @property
     def password(self):
         """
-            Return the `Password` configuration.
+            Return the *Password* configuration.
 
             :rtype: str
         """
@@ -243,7 +243,7 @@ class Machine(ConfigSection):
     @property
     def use_keyring(self):
         """
-            Return the `Use Keyring` configuration.
+            Return the *Use Keyring* configuration.
 
             :rtype: bool
         """
@@ -253,7 +253,7 @@ class Machine(ConfigSection):
     @property
     def run_as_elevated(self):
         """
-            Return the `Run As Elevated` configuration.
+            Return the *Run As Elevated* configuration.
 
             :rtype: bool
         """
@@ -263,7 +263,7 @@ class Machine(ConfigSection):
     @property
     def shell(self):
         """
-            Return the `Shell` configuration.
+            Return the *Shell* configuration.
 
             :rtype: str
         """
@@ -278,7 +278,7 @@ class Network(ConfigSection):
         """
             Return an instance of :class:`Network`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -292,7 +292,7 @@ class Network(ConfigSection):
     @property
     def ssh(self):
         """
-            Return the `SSH` configuration section.
+            Return the *SSH* configuration section.
 
             :rtype: :class:`Ssh`
         """
@@ -307,7 +307,7 @@ class Ssh(ConfigSection):
         """
             Return an instance of :class:`Ssh`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -354,7 +354,7 @@ class PackageManagers(ConfigSection):
         """
             Return an instance of :class:`PackageManagers`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -371,7 +371,7 @@ class Shells(ConfigSection):
         """
             Return an instance of :class:`Shells`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -388,7 +388,7 @@ class Virtualizers(ConfigSection):
         """
             Return an instance of :class:`Virtualizers`.
 
-            This method extends :meth:`~ConfigSection.__init__`.
+            This method extends :meth:`ConfigSection.__init__`.
 
             :param dict data: the data for the config section
 
@@ -417,9 +417,9 @@ class Config(ConfigSection):
     @property
     def general(self):
         """
-            Return the `General` configuration section.
+            Return the *General* configuration section.
 
-            :rtype: :class:`~.general.General`
+            :rtype: :class:`General`
         """
 
         return self._general
@@ -427,9 +427,9 @@ class Config(ConfigSection):
     @property
     def credentials(self):
         """
-            Return the `Credentials` configuration section.
+            Return the *Credentials* configuration section.
 
-            :rtype: :class:`~.credentials.Credentials`
+            :rtype: :class:`Credentials`
         """
 
         return self._credentials
@@ -437,9 +437,9 @@ class Config(ConfigSection):
     @property
     def network(self):
         """
-            Return the `Network` configuration section.
+            Return the *Network* configuration section.
 
-            :rtype: :class:`~.network.Network`
+            :rtype: :class:`Network`
         """
 
         return self._network
@@ -447,9 +447,9 @@ class Config(ConfigSection):
     @property
     def virtualizers(self):
         """
-            Return the `Virtualizers` configuration section.
+            Return the *Virtualizers* configuration section.
 
-            :rtype: :class:`~.virtualizers.Virtualizers`
+            :rtype: :class:`Virtualizers`
         """
 
         return self._virtualizers
@@ -457,9 +457,9 @@ class Config(ConfigSection):
     @property
     def pkgmgrs(self):
         """
-            Return the `Package Managers` configuration section.
+            Return the *Package Managers* configuration section.
 
-            :rtype: :class:`~.pkgmgrs.PackageManagers`
+            :rtype: :class:`PackageManagers`
         """
 
         return self._pkgmgrs
@@ -467,9 +467,9 @@ class Config(ConfigSection):
     @property
     def shells(self):
         """
-            Return the `Shells` configuration section.
+            Return the *Shells* configuration section.
 
-            :rtype: :class:`~.shells.Shells`
+            :rtype: :class:`Shells`
         """
 
         return self._shells
@@ -477,9 +477,9 @@ class Config(ConfigSection):
     @property
     def machines(self):
         """
-            Return the `Machines` configuration section.
+            Return the *Machines* configuration section.
 
-            :rtype: :class:`~.machines.Machines`
+            :rtype: :class:`Machines`
         """
 
         return self._machines

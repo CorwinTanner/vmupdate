@@ -17,7 +17,7 @@ def get_virtualizer(name, path):
     """
         Return an instance of a virtualizer.
 
-        The virtualizer should extend :class:`~.virtualizer.Virtualizer`.
+        The virtualizer should extend :class:`Virtualizer`.
 
         :param str name: name of the virtualizer class to instantiate
         :param str path: path of the virtualizer to pass to the constructor
@@ -87,7 +87,7 @@ class Virtualizer(object):
 
             This is a virtualizer-specific command and must be overridden.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :param str uid: identifier of the machine
 
@@ -103,7 +103,7 @@ class Virtualizer(object):
 
             This is a virtualizer-specific command and must be overridden.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :param str uid: identifier of the machine
 
@@ -228,7 +228,7 @@ class VirtualBox(Virtualizer):
         """
             Return the status of the virtual machine.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :param str uid: identifier of the machine
 
@@ -265,7 +265,7 @@ class VirtualBox(Virtualizer):
         """
             Return the operating system of the virtual machine.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :param str uid: identifier of the machine
 

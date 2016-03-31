@@ -24,9 +24,9 @@ The recommended installation tool is **pip**:
 
     $ pip install vmupdate
 
-=====
-Usage
-=====
+===============
+Getting Started
+===============
 
 Running vmupdate is just as easy:
 
@@ -62,9 +62,9 @@ This method is included for simplicity, but is not recommended due to the inhere
       Username: myuser
       Password: mypass
 
---------
+-------
 Keyring
---------
+-------
 
 If a ``Password`` is not specified and ``Use Keyring`` is ``True`` (default) the password will be retrieved from your
 host OS's keyring provider first under the name of your VM and then under the general key ``vmupdate``.

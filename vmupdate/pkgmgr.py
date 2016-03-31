@@ -18,7 +18,7 @@ def get_pkgmgrs(vm):
         :param vm: virtual machine to target
         :type vm: :class:`~.vm.VM`
 
-        :return: list of tuples of names and lists of paths
+        :return: list of tuples of (name, list of paths)
         :rtype: list((str, list(str)))
     """
 
@@ -70,7 +70,7 @@ def _run_pkgmgr_cmd(vm, shell, pkgmgr, cmd):
         :param str pkgmgr: name of the package manager to run
         :param str cmd: command to run
         :type vm: :class:`~.vm.VM`
-        :type shell: :class:`~.shells.shell.Shell`
+        :type shell: :class:`~.shells.Shell`
 
         :return: channel command
         :rtype: :class:`~.channel.ChannelCommand`
