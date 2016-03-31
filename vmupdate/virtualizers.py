@@ -120,6 +120,7 @@ class Virtualizer(object):
             This is a virtualizer-specific command and must be overridden.
 
             :param str uid: identifier of the machine
+            :param int ssh_port: expected SSH port of the guest
 
             :return: tuple of (hostname, port)
             :rtype: (str, int)
@@ -167,7 +168,8 @@ class VirtualBox(Virtualizer):
             :rtype: list(str, str)
         """
 
-        cmd = subprocess.Popen([self._manager_path, 'list', 'vms'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cmd = subprocess.Popen([self._manager_path, 'list', 'vms'],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         vms = []
 
@@ -197,7 +199,8 @@ class VirtualBox(Virtualizer):
             :rtype: int
         """
 
-        cmd = subprocess.Popen([self._manager_path, 'startvm', uid, '--type', 'headless'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cmd = subprocess.Popen([self._manager_path, 'startvm', uid, '--type', 'headless'],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -216,7 +219,8 @@ class VirtualBox(Virtualizer):
             :rtype: int
         """
 
-        cmd = subprocess.Popen([self._manager_path, 'controlvm', uid, 'poweroff'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cmd = subprocess.Popen([self._manager_path, 'controlvm', uid, 'poweroff'],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         return cmd.wait()
 
@@ -231,7 +235,8 @@ class VirtualBox(Virtualizer):
             :rtype: str
         """
 
-        cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -239,7 +244,8 @@ class VirtualBox(Virtualizer):
             log.error(stderrdata)
 
         if stdoutdata:
-            match = re.search(r"""^State:\s*(?P<state>[a-z\s]*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
+            match = re.search(r"""^State:\s*(?P<state>[a-z\s]*)""",
+                              stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
 
             if match:
                 state = match.group('state').strip().lower()
@@ -265,7 +271,8 @@ class VirtualBox(Virtualizer):
 
             :rtype: str
         """
-        cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -278,7 +285,7 @@ class VirtualBox(Virtualizer):
             if match:
                 state = match.group('os').strip().lower()
 
-                if state == 'windows' or state == 'windows xp' or state == 'windows vista' or state == 'other windows':
+                if state in ('windows', 'windows xp', 'windows vista', 'other windows'):
                     return OS_WINDOWS
                 elif state == 'mac os x':
                     return OS_MAC_OS_X
@@ -314,6 +321,7 @@ class VirtualBox(Virtualizer):
             Return the SSH connection information for the virtual machine.
 
             :param str uid: identifier of the machine
+            :param int ssh_port: expected SSH port of the guest
 
             :return: tuple of (hostname, port)
             :rtype: (str, int)
@@ -327,7 +335,13 @@ class VirtualBox(Virtualizer):
             log.error(stderrdata)
 
         if stdoutdata:
-            matches = re.finditer(r"""^NIC \d+ Rule\(\d+\):\s*name = (?P<name>[^,]*), protocol = (?P<protocol>(tcp|udp)), host ip = (?P<hostname>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), host port = (?P<hostport>\d*), guest ip = (?P<guestip>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), guest port = (?P<guestport>\d*)""", stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
+            matches = re.finditer(r"""^NIC \d+ Rule\(\d+\):\s*name = (?P<name>[^,]*), """
+                                  """protocol = (?P<protocol>(tcp|udp)), """
+                                  """host ip = (?P<hostname>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), """
+                                  """host port = (?P<hostport>\d*), """
+                                  """guest ip = (?P<guestip>(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})?), """
+                                  """guest port = (?P<guestport>\d*)""",
+                                  stdoutdata, flags=re.IGNORECASE | re.MULTILINE)
 
             if matches:
                 for match in matches:
@@ -348,7 +362,9 @@ class VirtualBox(Virtualizer):
             :rtype: int
         """
 
-        cmd = subprocess.Popen([self._manager_path, 'modifyvm', uid, '--natpf1', 'ssh,tcp,,{0},,{1}'.format(host_port, guest_port)])
+        cmd = subprocess.Popen([self._manager_path, 'modifyvm', uid,
+                                '--natpf1', 'ssh,tcp,,{0},,{1}'.format(host_port, guest_port)],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdoutdata, stderrdata = cmd.communicate()
 

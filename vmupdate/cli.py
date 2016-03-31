@@ -48,12 +48,12 @@ def _parse_args(args):
     return parser.parse_args(args)
 
 
-def _unhandled_exception_handler(type, value, tb):
+def _unhandled_exception_handler(ex_type, ex_value, ex_tb):
     """Log unhandled exceptions."""
 
     log = logging.getLogger(__name__)
 
-    log.critical('Unhandled exception\n%s', ''.join(traceback.format_exception(type, value, tb)))
+    log.critical('Unhandled exception\n%s', ''.join(traceback.format_exception(ex_type, ex_value, ex_tb)))
 
 
 if __name__ == '__main__':

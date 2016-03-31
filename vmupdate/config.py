@@ -197,7 +197,7 @@ class Machines(ConfigSection):
             :rtype:`Machines`
         """
 
-        self._data = {}
+        super(Machines, self).__init__(data)
 
         if data:
             for name, machine_data in data.iteritems():
@@ -400,6 +400,19 @@ class Virtualizers(ConfigSection):
 
 class Config(ConfigSection):
     """Provide a wrapper for the merged configuration files."""
+
+    def __init__(self):
+        super(Config, self).__init__()
+
+        self._general = None
+        self._credentials = None
+        self._network = None
+        self._virtualizers = None
+        self._pkgmgrs = None
+        self._shells = None
+        self._machines = None
+
+        self._logging = None
 
     @property
     def general(self):

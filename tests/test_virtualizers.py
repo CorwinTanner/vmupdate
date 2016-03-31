@@ -124,7 +124,8 @@ class VirtualBoxTestCase(unittest.TestCase):
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'modifyvm', TEST_UID,
                                                  '--natpf1', 'ssh,tcp,,{0},,{1}'.format(
-                                                    test_host_port, test_guest_port)])
+                                                    test_host_port, test_guest_port)],
+                                                stderr=mock.ANY, stdout=mock.ANY)
 
         self.mock_cmd.wait.assert_called_once_with()
 
