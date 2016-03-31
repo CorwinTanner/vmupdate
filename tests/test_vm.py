@@ -2,7 +2,7 @@ import mock
 
 from vmupdate.config import config
 from vmupdate.errors import SshError
-from vmupdate.shells.posix import Posix
+from vmupdate.shells import Posix
 from vmupdate.vm import VM
 
 from tests.case import TestCase

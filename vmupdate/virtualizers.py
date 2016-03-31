@@ -1,15 +1,148 @@
 """
-    Provide class to wrap the VirtualBox control utility.
+    Provide a transparent abstraction for interacting with virtualizers.
 """
 
+from abc import ABCMeta, abstractmethod
 import logging
 import re
 import subprocess
+import sys
 
-from .constants import *
-from .virtualizer import Virtualizer
+from vmupdate.constants import *
 
 log = logging.getLogger(__name__)
+
+
+def get_virtualizer(name, path):
+    """
+        Return an instance of a virtualizer.
+
+        The virtualizer should extend :class:`~.virtualizer.Virtualizer`.
+
+        :param str name: name of the virtualizer class to instantiate
+        :param str path: path of the virtualizer to pass to the constructor
+    """
+
+    virtualizer_class = getattr(sys.modules[__name__], name)
+
+    return virtualizer_class(path)
+
+
+class Virtualizer(object):
+    """
+        Abstract virtualizer control.
+
+        This class must be inherited and cannot be used directly.
+    """
+
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def list_vms(self):
+        """
+            Return all virtual machines.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            :return: list of tuple (name, id)
+            :rtype: list(str, str)
+        """
+
+        pass
+
+    @abstractmethod
+    def start_vm(self, uid):
+        """
+            Start the virtual machine.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            :param str uid: identifier of the machine
+
+            :return: exitcode
+            :rtype: int
+        """
+
+        pass
+
+    @abstractmethod
+    def stop_vm(self, uid):
+        """
+            Stop the virtual machine.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            :param str uid: identifier of the machine
+
+            :return: exitcode
+            :rtype: int
+        """
+
+        pass
+
+    @abstractmethod
+    def get_vm_status(self, uid):
+        """
+            Return the status of the virtual machine.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            Possible values can be found in :mod:`.virtualizers.constants`.
+
+            :param str uid: identifier of the machine
+
+            :rtype: str
+        """
+
+        pass
+
+    @abstractmethod
+    def get_vm_os(self, uid):
+        """
+            Return the operating system of the virtual machine.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            Possible values can be found in :mod:`.virtualizers.constants`.
+
+            :param str uid: identifier of the machine
+
+            :rtype: str
+        """
+
+        pass
+
+    @abstractmethod
+    def get_ssh_info(self, uid, ssh_port):
+        """
+            Return the SSH connection information for the virtual machine.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            :param str uid: identifier of the machine
+
+            :return: tuple of (hostname, port)
+            :rtype: (str, int)
+        """
+
+        pass
+
+    @abstractmethod
+    def enable_ssh(self, uid, host_port, guest_port):
+        """
+            Enable SSH port forwarding for the virtual machine.
+
+            This is a virtualizer-specific command and must be overridden.
+
+            :param str uid: identifier of the machine
+            :param int host_port: the post on the host to forward to the guest
+            :param int guest_port: SSH port of the guest
+
+            :return: exitcode
+            :rtype: int
+        """
+
+        pass
 
 
 class VirtualBox(Virtualizer):

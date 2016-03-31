@@ -1,7 +1,7 @@
 import mock
 
 from vmupdate.config import config
-from vmupdate.config.config import _merge
+from vmupdate.config import _merge
 
 from tests.case import TestCase
 from tests.constants import *

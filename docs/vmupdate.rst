@@ -6,18 +6,6 @@ vmupdate
     :undoc-members:
     :show-inheritance:
 
-Packages
-===========
-
-.. toctree::
-
-    vmupdate.config
-    vmupdate.shells
-    vmupdate.virtualizers
-
-Modules
-==========
-
 vmupdate.channel
 ----------------
 
@@ -30,6 +18,14 @@ vmupdate.cli
 ------------
 
 .. automodule:: vmupdate.cli
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vmupdate.config
+---------------
+
+.. automodule:: vmupdate.config
     :members:
     :undoc-members:
     :show-inheritance:
@@ -62,6 +58,22 @@ vmupdate.pkgmgr
 ---------------
 
 .. automodule:: vmupdate.pkgmgr
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vmupdate.shells
+---------------
+
+.. automodule:: vmupdate.shells
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vmupdate.virtualizers
+---------------------
+
+.. automodule:: vmupdate.virtualizers
     :members:
     :undoc-members:
     :show-inheritance:

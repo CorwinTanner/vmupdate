@@ -2,9 +2,8 @@ import unittest
 
 import mock
 
-from vmupdate.virtualizers import get_virtualizer
-from vmupdate.virtualizers.virtualbox import VirtualBox
-from vmupdate.virtualizers.constants import *
+from vmupdate.constants import *
+from vmupdate.virtualizers import get_virtualizer, VirtualBox
 
 from tests.constants import *
 from tests.context import get_data_string
