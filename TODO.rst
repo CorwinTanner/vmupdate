@@ -2,7 +2,6 @@
 TODO
 ****
 
-* Write comprehensive documentation
 * Add support for more Python versions
     * 2.6
     * 3.x
