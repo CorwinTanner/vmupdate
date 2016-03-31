@@ -11,11 +11,11 @@ from .shells import get_shell
 
 class VM(object):
     """
-        Abstract virtual machine.
+        Provide virtual machine interface.
 
         :ivar virtualizer: virtualizer that the virtual machine runs under
-        :ivar str uid: name of the virtual machine
-        :vartype virtualizer: :class:`~.virtualizers.virtualizer.Virtualizer`
+        :ivar str uid: identifier of the virtual machine
+        :vartype virtualizer: :class:`~.virtualizers.Virtualizer`
     """
 
     def __init__(self, virtualizer, uid):
@@ -23,8 +23,8 @@ class VM(object):
             Return an instance of :class:`VM`.
 
             :param virtualizer: virtualizer that the virtual machine runs under
-            :param str uid: name of the virtual machine
-            :type virtualizer: :class:`~.virtualizers.virtualizer.Virtualizer`
+            :param str uid: identifier of the virtual machine
+            :type virtualizer: :class:`~.virtualizers.Virtualizer`
 
             :rtype:`VM`
         """
@@ -56,20 +56,30 @@ class VM(object):
         return config.shells.get(self.virtualizer.get_vm_os(self.uid))
 
     def start(self):
-        """Start the virtual machine."""
+        """
+            Start the virtual machine.
 
-        self.virtualizer.start_vm(self.uid)
+            :return: exitcode
+            :rtype: int
+        """
+
+        return self.virtualizer.start_vm(self.uid)
 
     def stop(self):
-        """Stop the virtual machine."""
+        """
+            Stop the virtual machine.
 
-        self.virtualizer.stop_vm(self.uid)
+            :return: exitcode
+            :rtype: int
+        """
+
+        return self.virtualizer.stop_vm(self.uid)
 
     def get_status(self):
         """
             Return the status of the virtual machine.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :rtype: str
         """
@@ -80,7 +90,7 @@ class VM(object):
         """
             Return the operating system of the virtual machine.
 
-            Possible values can be found in :mod:`.virtualizers.constants`.
+            Possible values can be found in :mod:`.constants`.
 
             :rtype: str
         """
@@ -91,7 +101,7 @@ class VM(object):
         """
             Return the SSH connection information for the virtual machine.
 
-            :return: tuple of hostname and port
+            :return: tuple of (hostname, port)
             :rtype: (str, int)
         """
 
@@ -113,7 +123,7 @@ class VM(object):
         """
             Connect to the virtual machine and return a shell.
 
-            :rtype: :class:`~.shells.shell.Shell`
+            :rtype: :class:`~.shells.Shell`
         """
 
         ip, port = self.get_ssh_info()

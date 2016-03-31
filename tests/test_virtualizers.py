@@ -2,9 +2,8 @@ import unittest
 
 import mock
 
-from vmupdate.virtualizers import get_virtualizer
-from vmupdate.virtualizers.virtualbox import VirtualBox
-from vmupdate.virtualizers.constants import *
+from vmupdate.constants import *
+from vmupdate.virtualizers import get_virtualizer, VirtualBox
 
 from tests.constants import *
 from tests.context import get_data_string
@@ -125,7 +124,8 @@ class VirtualBoxTestCase(unittest.TestCase):
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'modifyvm', TEST_UID,
                                                  '--natpf1', 'ssh,tcp,,{0},,{1}'.format(
-                                                    test_host_port, test_guest_port)])
+                                                    test_host_port, test_guest_port)],
+                                                stderr=mock.ANY, stdout=mock.ANY)
 
         self.mock_cmd.wait.assert_called_once_with()
 

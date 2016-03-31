@@ -1,23 +1,22 @@
-.. vmupdate documentation master file, created by
-   sphinx-quickstart on Tue Mar 29 14:43:16 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+########
+vmupdate
+########
 
-Welcome to vmupdate's documentation!
-====================================
+**vmupdate** is a command line utility used to keep your virtual machines up to date. It searches your computer for
+virtualizers, queries them for a list of VM's, and runs the appropriate update commands.
 
-Contents:
+Head on over to :doc:`gettingstarted` for more information.
 
 .. toctree::
-   :maxdepth: 4
+   :caption: User Documentation
+   :hidden:
 
-   vmupdate
+   gettingstarted
+   configuration
+   troubleshooting
 
+.. toctree::
+   :caption: Developer Documentation
+   :hidden:
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   code

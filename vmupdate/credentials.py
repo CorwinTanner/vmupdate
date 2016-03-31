@@ -13,7 +13,7 @@ def get_credentials(uid):
 
         :param str uid: name of the virtual machine
 
-        :return: tuple of username and password
+        :return: tuple of (username, password)
         :rtype: (str, str)
     """
 

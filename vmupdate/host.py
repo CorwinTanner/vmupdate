@@ -9,7 +9,7 @@ import time
 
 from .config import config
 from .pkgmgr import get_pkgmgrs, run_pkgmgr
-from .virtualizers import get_virtualizer, VM_STOPPED
+from .virtualizers import get_virtualizer, VM_STOPPED, VM_UNKNOWN
 from .vm import VM
 
 log = logging.getLogger(__name__)
@@ -32,6 +32,8 @@ def update_all_vms():
     available_ports = iter(_get_available_ports(vms))
 
     for vm in vms:
+        vm_orig_status = VM_UNKNOWN
+
         try:
             if not any(vm.get_ssh_info()):
                 if vm.get_status() == VM_STOPPED:

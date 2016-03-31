@@ -1,7 +1,7 @@
 import mock
 import paramiko
 
-from vmupdate.virtualizers.virtualizer import Virtualizer
+from vmupdate.virtualizers import Virtualizer
 
 from tests.constants import *
 
