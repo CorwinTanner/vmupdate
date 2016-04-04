@@ -27,7 +27,7 @@ setup(
         ('logging', ['vmupdate/data/logging.yaml'])],
     include_package_data=True,
     zip_safe=False,
-    install_requires=['PyYAML>=3', 'keyring>=8', 'paramiko>=1'],
+    install_requires=['PyYAML>=3', 'keyring>=8', 'paramiko>=1', 'future>=0.15'],
     entry_points={
         'console_scripts': [
             'vmupdate=vmupdate.cli:main',
