@@ -41,7 +41,7 @@ class VirtualBoxTestCase(unittest.TestCase):
         vms = self.virt.list_vms()
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'list', 'vms'],
-                                                stderr=mock.ANY, stdout=mock.ANY)
+                                                stderr=mock.ANY, stdout=mock.ANY, universal_newlines=True)
 
         self.assertListEqual(vms, [('Test Machine 1', 'b243d621-8003-43e5-9ff4-3e87b2c1b303'),
                                    ('Test Machine 2', 'd208316d-e977-4e56-8933-c942ff7848d4')])
@@ -50,7 +50,8 @@ class VirtualBoxTestCase(unittest.TestCase):
         self.virt.start_vm(TEST_UID)
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'startvm', TEST_UID,
-                                                 '--type', 'headless'], stderr=mock.ANY, stdout=mock.ANY)
+                                                 '--type', 'headless'], stderr=mock.ANY, stdout=mock.ANY,
+                                                universal_newlines=True)
 
         self.mock_cmd.wait.assert_called_once_with()
 
@@ -59,7 +60,7 @@ class VirtualBoxTestCase(unittest.TestCase):
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'controlvm',
                                                  TEST_UID, 'poweroff'],
-                                                stderr=mock.ANY, stdout=mock.ANY)
+                                                stderr=mock.ANY, stdout=mock.ANY, universal_newlines=True)
 
         self.mock_cmd.wait.assert_called_once_with()
 
@@ -67,7 +68,7 @@ class VirtualBoxTestCase(unittest.TestCase):
         status = self.virt.get_vm_status(TEST_UID)
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'showvminfo',
-                                                 TEST_UID], stderr=mock.ANY, stdout=mock.ANY)
+                                                 TEST_UID], stderr=mock.ANY, stdout=mock.ANY, universal_newlines=True)
 
         self._test_get_vm_status('powered off', VM_STOPPED)
         self._test_get_vm_status('aborted', VM_STOPPED)
@@ -80,7 +81,7 @@ class VirtualBoxTestCase(unittest.TestCase):
         status = self.virt.get_vm_status(TEST_UID)
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'showvminfo',
-                                                 TEST_UID], stderr=mock.ANY, stdout=mock.ANY)
+                                                 TEST_UID], stderr=mock.ANY, stdout=mock.ANY, universal_newlines=True)
 
         self._test_get_vm_os('Windows', OS_WINDOWS)
         self._test_get_vm_os('Windows XP', OS_WINDOWS)
@@ -107,7 +108,7 @@ class VirtualBoxTestCase(unittest.TestCase):
         ssh_info = self.virt.get_ssh_info(TEST_UID, 0)
 
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'showvminfo',
-                                                 TEST_UID], stderr=mock.ANY, stdout=mock.ANY)
+                                                 TEST_UID], stderr=mock.ANY, stdout=mock.ANY, universal_newlines=True)
 
         self.assertTupleEqual(ssh_info, (None, None))
 
@@ -125,7 +126,7 @@ class VirtualBoxTestCase(unittest.TestCase):
         self.mock_popen.assert_called_once_with([TEST_VIRTUALIZER_PATH, 'modifyvm', TEST_UID,
                                                  '--natpf1', 'ssh,tcp,,{0},,{1}'.format(
                                                     test_host_port, test_guest_port)],
-                                                stderr=mock.ANY, stdout=mock.ANY)
+                                                stderr=mock.ANY, stdout=mock.ANY, universal_newlines=True)
 
         self.mock_cmd.wait.assert_called_once_with()
 
