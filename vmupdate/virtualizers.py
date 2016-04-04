@@ -169,7 +169,7 @@ class VirtualBox(Virtualizer):
         """
 
         cmd = subprocess.Popen([self._manager_path, 'list', 'vms'],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
         vms = []
 
@@ -200,7 +200,7 @@ class VirtualBox(Virtualizer):
         """
 
         cmd = subprocess.Popen([self._manager_path, 'startvm', uid, '--type', 'headless'],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -220,7 +220,7 @@ class VirtualBox(Virtualizer):
         """
 
         cmd = subprocess.Popen([self._manager_path, 'controlvm', uid, 'poweroff'],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
         return cmd.wait()
 
@@ -236,7 +236,7 @@ class VirtualBox(Virtualizer):
         """
 
         cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -272,7 +272,7 @@ class VirtualBox(Virtualizer):
             :rtype: str
         """
         cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -327,7 +327,8 @@ class VirtualBox(Virtualizer):
             :rtype: (str, int)
         """
 
-        cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cmd = subprocess.Popen([self._manager_path, 'showvminfo', uid], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               universal_newlines=True)
 
         stdoutdata, stderrdata = cmd.communicate()
 
@@ -364,7 +365,7 @@ class VirtualBox(Virtualizer):
 
         cmd = subprocess.Popen([self._manager_path, 'modifyvm', uid,
                                 '--natpf1', 'ssh,tcp,,{0},,{1}'.format(host_port, guest_port)],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
         stdoutdata, stderrdata = cmd.communicate()
 
