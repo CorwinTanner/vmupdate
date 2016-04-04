@@ -1,5 +1,3 @@
-import mock
-
 from vmupdate.config import config
 from vmupdate.host import update_all_vms, _find_virtualizers
 from vmupdate.virtualizers import VM_STOPPED, VM_RUNNING

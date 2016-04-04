@@ -6,7 +6,7 @@ from vmupdate.constants import *
 from vmupdate.virtualizers import get_virtualizer, VirtualBox
 
 from tests.constants import *
-from tests.context import get_data_string
+from tests.context import get_data_string, mock
 
 
 class VirtualBoxTestCase(unittest.TestCase):

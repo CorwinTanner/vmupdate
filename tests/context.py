@@ -1,5 +1,10 @@
 from os.path import abspath, dirname, join
 
+try:
+    import mock
+except:
+    from unittest import mock
+
 TEST_DIR = dirname(abspath(__file__))
 TEST_DATA_DIR = join(TEST_DIR, 'data')
 

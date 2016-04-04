@@ -1,9 +1,9 @@
-import mock
 import paramiko
 
 from vmupdate.virtualizers import Virtualizer
 
 from tests.constants import *
+from tests.context import mock
 
 
 def keyring_get_password(service_name, username):

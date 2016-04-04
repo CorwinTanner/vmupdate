@@ -1,11 +1,9 @@
-import mock
-
 from vmupdate.config import config
 from vmupdate.config import _merge
 
 from tests.case import TestCase
 from tests.constants import *
-from tests.context import get_data_path
+from tests.context import get_data_path, mock
 
 
 class ConfigTestCase(TestCase):
@@ -79,9 +77,9 @@ class UserConfigTestCase(TestCase):
 
     def test_configsection(self):
         self.assertGreater(len(config.machines), 0)
-        self.assertEqual(next(config.machines.iterkeys()), config.machines.keys()[0])
-        self.assertEqual(next(config.machines.iteritems()), config.machines.items()[0])
-        self.assertEqual(next(config.machines.itervalues()), config.machines.values()[0])
+        self.assertGreater(len(config.machines.keys()), 0)
+        self.assertGreater(len(config.machines.items()), 0)
+        self.assertGreater(len(config.machines.values()), 0)
         self.assertIsNotNone(iter(config.machines))
 
 

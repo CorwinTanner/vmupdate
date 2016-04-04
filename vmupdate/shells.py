@@ -6,6 +6,8 @@ from abc import ABCMeta, abstractmethod
 import shlex
 import sys
 
+from future.utils import with_metaclass
+
 
 def get_shell(name, channel):
     """
@@ -23,7 +25,7 @@ def get_shell(name, channel):
     return shell_class(channel)
 
 
-class Shell(object):
+class Shell(with_metaclass(ABCMeta)):
     """
         Abstract virtual machine shell that communicates through a channel.
 
@@ -32,8 +34,6 @@ class Shell(object):
         :ivar channel: channel used for virtual machine communication
         :vartype channel: :class:`~.channel.Channel`
     """
-
-    __metaclass__ = ABCMeta
 
     def __enter__(self):
         """
@@ -142,7 +142,7 @@ class Posix(Shell):
             :rtype: :class:`~.channel.ChannelCommand`
         """
 
-        if isinstance(args, basestring):
+        if isinstance(args, str):
             args = shlex.split(args)
 
         elevated_args = ['sudo', '-S']

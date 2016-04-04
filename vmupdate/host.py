@@ -139,7 +139,7 @@ def _get_available_ports(vms):
     min_port = config.network.ssh.host_min_port
     max_port = config.network.ssh.host_max_port
 
-    return [p for p in xrange(min_port, max_port) if p not in used_ports]
+    return [p for p in range(min_port, max_port) if p not in used_ports]
 
 
 def _get_used_ports(vms):

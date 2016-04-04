@@ -1,6 +1,6 @@
 import unittest
 
-import mock
+from tests.context import mock
 
 
 class TestCase(unittest.TestCase):
