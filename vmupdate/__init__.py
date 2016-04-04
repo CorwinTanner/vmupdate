@@ -4,6 +4,6 @@
 
 from os import path
 
-__version__ = '0.1.9'
+__version__ = '0.2.0'
 
 BASE_DIR = path.dirname(path.dirname(__file__))
