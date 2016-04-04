@@ -1,5 +1,3 @@
-import mock
-
 from vmupdate.config import config
 from vmupdate.errors import UpdateError
 from vmupdate.pkgmgr import get_pkgmgrs, run_pkgmgr
@@ -7,7 +5,7 @@ from vmupdate.vm import VM
 
 from tests.case import TestCase
 from tests.constants import *
-from tests.context import get_data_path
+from tests.context import get_data_path, mock
 from tests.mocks import get_mock_virtualizer, get_mock_ssh_client
 
 

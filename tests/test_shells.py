@@ -1,11 +1,10 @@
 import unittest
 
-import mock
-
 from vmupdate.shells import get_shell, Shell, Posix
 from vmupdate.channel import Channel
 
 from tests.constants import *
+from tests.context import mock
 from tests.mocks import get_mock_ssh_client
 
 

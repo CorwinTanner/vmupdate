@@ -59,21 +59,6 @@ class ConfigSection(object):
 
         return self._data.items()
 
-    def iteritems(self):
-        """Return an iterator over the config section's (key, value) pairs."""
-
-        return self._data.iteritems()
-
-    def iterkeys(self):
-        """Return an iterator over the config section's keys."""
-
-        return self._data.iterkeys()
-
-    def itervalues(self):
-        """Return an iterator over the config section's values."""
-
-        return self._data.itervalues()
-
     def keys(self):
         """Return a copy of the config section's list of keys."""
 
@@ -200,7 +185,7 @@ class Machines(ConfigSection):
         super(Machines, self).__init__(data)
 
         if data:
-            for name, machine_data in data.iteritems():
+            for name, machine_data in data.items():
                 self._data[name] = Machine(machine_data)
 
 

@@ -1,8 +1,7 @@
-import mock
-
 from vmupdate.cli import main, _parse_args, _unhandled_exception_handler
 
 from tests.case import TestCase
+from tests.context import mock
 
 
 class CliTestCase(TestCase):
@@ -18,4 +17,4 @@ class CliTestCase(TestCase):
         mock_update_all_vms.assert_called_once_with()
 
     def test_unhandled_exception_handler(self):
-        _unhandled_exception_handler(None, None, None)
+        _unhandled_exception_handler(None, Exception(), None)

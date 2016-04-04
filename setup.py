@@ -37,7 +37,7 @@ setup(
     tests_require=['mock>=1.3'],
     keywords=['vm', 'update', 'virtual', 'machine'],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: MIT License',
@@ -45,7 +45,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 2 :: Only',
+        'Programming Language :: Python :: 3.4',
         'Topic :: System :: Systems Administration',
         'Topic :: Utilities',
     ],
