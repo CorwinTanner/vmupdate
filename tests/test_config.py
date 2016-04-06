@@ -74,6 +74,8 @@ class UserConfigTestCase(TestCase):
         self.assertIsNone(config.machines['Test Machine 2'].password)
         self.assertFalse(config.machines['Test Machine 2'].use_keyring)
         self.assertEqual(config.machines['Test Machine 2'].shell, 'TestShell')
+        self.assertFalse(config.machines['Test Machine 4'].ignore)
+        self.assertTrue(config.machines['Test Machine 5'].ignore)
 
     def test_configsection(self):
         self.assertGreater(len(config.machines), 0)

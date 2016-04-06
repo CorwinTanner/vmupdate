@@ -255,6 +255,16 @@ class Machine(ConfigSection):
 
         return self.get('Shell')
 
+    @property
+    def ignore(self):
+        """
+            Return the *Ignore* configuration.
+
+            :rtype: bool
+        """
+
+        return self.get('Ignore', False)
+
 
 class Network(ConfigSection):
     """Provide a wrapper around the network configuration section."""

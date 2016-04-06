@@ -75,6 +75,8 @@ def _get_all_vms():
     """
         Return all virtual machines on the system.
 
+        Ignores machines where ``Ignore`` is ``True`` in the config.
+
         :return: list of virtual machines
         :rtype: list(:class:`~.vm.VM`)
     """
@@ -89,9 +91,12 @@ def _get_all_vms():
         virtualizer = get_virtualizer(virt_name, virt_path)
 
         for vm_name, vm_uuid in virtualizer.list_vms():
-            log.info('Found VM %s', vm_name)
+            if _should_skip(vm_name):
+                log.info('Skipping VM %s', vm_name)
+            else:
+                log.info('Found VM %s', vm_name)
 
-            vms.append(VM(virtualizer, vm_name))
+                vms.append(VM(virtualizer, vm_name))
 
     return vms
 
@@ -162,3 +167,15 @@ def _get_used_ports(vms):
             used_ports.add(port)
 
     return used_ports
+
+
+def _should_skip(name):
+    """
+        Return whether to skip a machine.
+
+        :param str name: name of the machine to check
+
+        :rtype: bool
+    """
+
+    return config.machines[name].ignore

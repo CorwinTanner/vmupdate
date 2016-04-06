@@ -1,5 +1,5 @@
 from vmupdate.config import config
-from vmupdate.host import update_all_vms, _find_virtualizers
+from vmupdate.host import update_all_vms, _find_virtualizers, _should_skip
 from vmupdate.virtualizers import VM_STOPPED, VM_RUNNING
 
 from tests.case import TestCase
@@ -67,3 +67,7 @@ class HostTestCase(TestCase):
         virtualizers = _find_virtualizers()
 
         self.assertEqual(len(virtualizers), 0)
+
+    def test_should_skip(self):
+        self.assertFalse(_should_skip('Test Machine 1'))
+        self.assertTrue(_should_skip('Test Machine 5'))

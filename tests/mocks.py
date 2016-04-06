@@ -49,6 +49,7 @@ def get_mock_virtualizer():
     mock_virt.get_ssh_info.return_value = (TEST_HOST, TEST_HOST_PORT)
     mock_virt.enable_ssh.return_value = TEST_EXITCODE
     mock_virt.list_vms.return_value = [('Test Machine 1', None), ('Test Machine 2', None),
-                                       ('Test Machine 3', None), ('Test Machine 4', None)]
+                                       ('Test Machine 3', None), ('Test Machine 4', None),
+                                       ('Test Machine 5', None)]
 
     return mock_virt
