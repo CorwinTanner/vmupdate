@@ -7,6 +7,28 @@ virtualizers, queries them for a list of VM's, and runs the appropriate update c
 
 Head on over to :doc:`gettingstarted` for more information.
 
+********
+Features
+********
+
+============
+Virtualizers
+============
+
+* Windows
+    * VirtualBox
+
+======
+Guests
+======
+
+* Arch
+* Debian
+* Fedora
+* Red Hat
+* Ubuntu
+
+
 .. toctree::
    :caption: User Documentation
    :hidden:

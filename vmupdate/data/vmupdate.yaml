@@ -26,23 +26,37 @@ Package Managers:
   Arch:
     pacman:
       - -Syu --noconfirm
+  Debian:
+    apt-get:
+      - update -y -u -q
+      - upgrade -y -u -q
+  Fedora:
+    dnf:
+      - update -y
+    yum:
+      - update -y
+  Red Hat:
+    dnf:
+      - update -y
+    yum:
+      - update -y
   Ubuntu:
     apt-get:
       - update -y -u -q
       - upgrade -y -u -q
 
 Shells:
-  Linux: Posix
   Arch: Posix
-  Ubuntu: Posix
-  Red Hat: Posix
   Debian: Posix
   Fedora: Posix
   Gentoo: Posix
-  openSUSE: Posix
+  Linux: Posix
   Mandriva: Posix
-  Turbolinux: Posix
-  Xandros: Posix
+  openSUSE: Posix
   Oracle: Posix
+  Red Hat: Posix
+  Turbolinux: Posix
+  Ubuntu: Posix
+  Xandros: Posix
 
 Machines:

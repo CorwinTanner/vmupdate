@@ -7,6 +7,10 @@ Changes by Release
 **********************
 
 * Added ignore feature
+* Added support for additional guests
+    * Debian
+    * Fedora
+    * Red Hat
 
 **********************
 0.2 - April 4, 2016

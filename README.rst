@@ -47,28 +47,6 @@ And pass that file to the utility:
 password. Read the `Configuration <http://vmupdate.readthedocs.org/en/stable/configuration.html>`_ documentation for
 more options.
 
-********
-Features
-********
-
-This list will continue expanding with later iterations of the utility.
-
-============
-Virtualizers
-============
-
-* Windows
-    * VirtualBox
-
-======
-Guests
-======
-
-* Arch
-    * pacman
-* Ubuntu
-    * apt-get
-
 
 .. |build| image:: https://img.shields.io/travis/CorwinTanner/vmupdate.svg
     :target: https://travis-ci.org/CorwinTanner/vmupdate
