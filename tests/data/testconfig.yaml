@@ -39,3 +39,5 @@ Machines:
   Test Machine 4:
     Username: testuser4
     Use Keyring: false
+  Test Machine 5:
+    Ignore: true

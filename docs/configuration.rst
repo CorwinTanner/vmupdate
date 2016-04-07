@@ -140,6 +140,7 @@ The ``Machines`` section is used for overriding the configuration for specific v
           Use Keyring: true
           Run As Elevated: true
           Shell: Posix
+          Ignore: false
 
 Username
     The username used to authenticate with the VM.
@@ -152,6 +153,8 @@ Run As Elevated
     operating system configurations.
 Shell
     Which shell to use for communicating with the guest operating system.
+Ignore
+    Whether to skip the machine for updating. Defaults to ``false``.
 
 ``My Machine`` is the name of the virtual machine as listed in the virtualizer.
 
