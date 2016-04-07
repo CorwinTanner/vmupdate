@@ -30,7 +30,7 @@ handlers:
     encoding: utf8
 loggers:
   vmupdate:
-    level: INFO
+    level: DEBUG
   paramiko:
     level: WARNING
 root:
