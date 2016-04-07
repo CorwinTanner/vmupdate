@@ -121,6 +121,8 @@ def _find_virtualizers():
                 log.debug('Checking virtualizer "%s"', path)
 
                 if os.path.isfile(path):
+                    log.debug('Found virtualizer "%s"', path)
+
                     virtualizers[name] = path
         except:
             log.exception('Failed while locating virtualizer %s', name)
