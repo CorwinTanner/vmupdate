@@ -178,4 +178,4 @@ def _should_skip(name):
         :rtype: bool
     """
 
-    return config.machines[name].ignore
+    return name in config.machines and config.machines[name].ignore

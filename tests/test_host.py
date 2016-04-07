@@ -71,3 +71,4 @@ class HostTestCase(TestCase):
     def test_should_skip(self):
         self.assertFalse(_should_skip('Test Machine 1'))
         self.assertTrue(_should_skip('Test Machine 5'))
+        self.assertFalse(_should_skip('Machine Not In Config'))
