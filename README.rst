@@ -12,7 +12,7 @@ virtualizers, queries them for a list of VM's, and runs the appropriate update c
     :depth: 1
     :backlinks: none
 
-`Read the docs <http://vmupdate.readthedocs.org>`_ for more details.
+`Read the docs <http://vmupdate.readthedocs.io>`_ for more details.
 
 ************
 Installation
@@ -44,7 +44,7 @@ And pass that file to the utility:
     $ vmupdate --config "/path/to/config/vmupdate.yaml"
 
 **Note:** This method is included for simplicity, but is not recommended due to the inherent insecurity of a plaintext
-password. Read the `Configuration <http://vmupdate.readthedocs.org/en/stable/configuration.html>`_ documentation for
+password. Read the `Configuration <http://vmupdate.readthedocs.io/en/stable/configuration.html>`_ documentation for
 more options.
 
 
@@ -58,7 +58,7 @@ more options.
     :target: https://github.com/CorwinTanner/vmupdate/blob/master/LICENSE
 
 .. |docs| image:: https://img.shields.io/badge/docs-latest-blue.svg
-    :target: http://vmupdate.readthedocs.org
+    :target: http://vmupdate.readthedocs.io
 
 .. |python| image:: https://img.shields.io/pypi/pyversions/vmupdate.svg
     :target: https://github.com/CorwinTanner/vmupdate
